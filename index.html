@@ -1,83 +1,70 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>SmartCap · 智能药瓶盖 项目文档</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SmartCap · 智能药瓶盖 全量文档</title>
 <style>
-:root{--bg:#1a1a2e;--bg-side:#16213e;--bg-card:#0f3460;--txt:#e0e0e0;--txth:#00d4ff;--txtm:#8892b0;--bd:rgba(0,212,255,.15);--cy:#00d4ff;--cbg:#0d1117;--lk:#64ffda;--wn:#f59e0b}
+:root{--bg:#1a1a2e;--bg-side:#16213e;--bg-card:#0f3460;--txt:#e0e0e0;--txth:#00d4ff;--txtm:#8892b0;--bd:rgba(0,212,255,.15);--cy:#00d4ff;--cbg:#0d1117;--lk:#64ffda;--wn:#f59e0b;--gn:#10b981;--rd:#ef4444}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--txt);line-height:1.7;display:flex;min-height:100vh}
-nav{width:300px;min-width:300px;background:var(--bg-side);padding:2rem 1.5rem;position:fixed;top:0;left:0;bottom:0;overflow-y:auto;border-right:1px solid var(--bd);z-index:10}
-nav h2{color:var(--cy);font-size:1.1rem;margin-bottom:1.5rem}
-nav h2 small{display:block;color:var(--txtm);font-size:.65rem;font-weight:400;margin-top:.2rem}
-nav .ns{margin-bottom:1.2rem}
-nav .nst{font-size:.65rem;color:var(--txtm);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.4rem;font-weight:600}
-nav a{display:block;padding:.3rem .5rem;color:var(--txt);text-decoration:none;font-size:.78rem;border-radius:4px;transition:all .2s}
+nav{width:280px;min-width:280px;background:var(--bg-side);padding:1.5rem 1rem;position:fixed;top:0;left:0;bottom:0;overflow-y:auto;border-right:1px solid var(--bd);z-index:10}
+nav h2{color:var(--cy);font-size:1rem;margin-bottom:1rem}
+nav h2 small{display:block;color:var(--txtm);font-size:.6rem;font-weight:400;margin-top:.1rem}
+nav .ns{margin-bottom:1rem}
+nav .nst{font-size:.6rem;color:var(--txtm);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.3rem;font-weight:600}
+nav a{display:block;padding:.25rem .4rem;color:var(--txt);text-decoration:none;font-size:.72rem;border-radius:3px;transition:all .2s}
 nav a:hover,nav a.ac{background:rgba(0,212,255,.08);color:var(--cy)}
-nav .st{font-size:.6rem;padding:1px 6px;border-radius:8px;margin-left:.4rem}
+nav .st{font-size:.55rem;padding:1px 5px;border-radius:6px;margin-left:.3rem}
 nav .st.d{background:rgba(100,255,218,.15);color:var(--lk)}
 nav .st.w{background:rgba(245,158,11,.15);color:var(--wn)}
-main{margin-left:300px;flex:1;padding:3rem 4rem;max-width:900px}
-h1{font-size:2rem;color:var(--cy);margin-bottom:.5rem}
-h2{font-size:1.35rem;color:var(--txth);margin:2.5rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid var(--bd)}
-h3{font-size:1.05rem;color:var(--txth);margin:1.5rem 0 .8rem}
-p{margin-bottom:1rem}
-ul,ol{margin:0 0 1rem 1.5rem}
-li{margin-bottom:.3rem}
-code{background:var(--cbg);padding:2px 6px;border-radius:3px;font-size:.85em;color:var(--lk)}
-pre{background:var(--cbg);padding:1rem 1.2rem;border-radius:8px;overflow-x:auto;margin-bottom:1rem;border:1px solid var(--bd)}
+main{margin-left:280px;flex:1;padding:2.5rem 3rem;max-width:880px}
+h1{font-size:1.8rem;color:var(--cy);margin-bottom:.4rem}
+h2{font-size:1.3rem;color:var(--txth);margin:2rem 0 .8rem;padding-bottom:.4rem;border-bottom:1px solid var(--bd)}
+h3{font-size:1.05rem;color:var(--txth);margin:1.3rem 0 .6rem}
+h4{font-size:.9rem;color:var(--txtm);margin:1rem 0 .4rem}
+p{margin-bottom:.8rem;font-size:.9rem}
+ul,ol{margin:0 0 .8rem 1.5rem;font-size:.9rem}
+li{margin-bottom:.25rem}
+code{background:var(--cbg);padding:1px 5px;border-radius:3px;font-size:.82em;color:var(--lk)}
+pre{background:var(--cbg);padding:.8rem 1rem;border-radius:6px;overflow-x:auto;margin-bottom:.8rem;border:1px solid var(--bd);font-size:.82em}
 pre code{background:none;padding:0}
-table{width:100%;border-collapse:collapse;margin-bottom:1.5rem;font-size:.85rem}
-th{background:var(--bg-card);padding:.6rem .8rem;text-align:left;font-weight:600;color:var(--cy);border-bottom:2px solid var(--bd)}
-td{padding:.5rem .8rem;border-bottom:1px solid var(--bd)}
+table{width:100%;border-collapse:collapse;margin-bottom:1.2rem;font-size:.82rem}
+th{background:var(--bg-card);padding:.5rem .7rem;text-align:left;font-weight:600;color:var(--cy);border-bottom:2px solid var(--bd)}
+td{padding:.4rem .7rem;border-bottom:1px solid var(--bd)}
 tr:hover td{background:rgba(0,212,255,.03)}
-blockquote{border-left:3px solid var(--cy);padding:.5rem 1rem;margin:0 0 1rem;background:rgba(0,212,255,.05);border-radius:0 6px 6px 0;color:var(--txtm)}
-.co{padding:1rem 1.2rem;border-radius:8px;margin-bottom:1rem}
+blockquote{border-left:3px solid var(--cy);padding:.4rem .8rem;margin:0 0 .8rem;background:rgba(0,212,255,.05);border-radius:0 6px 6px 0;color:var(--txtm);font-size:.9rem}
+.co{padding:.8rem 1rem;border-radius:6px;margin-bottom:.8rem;font-size:.85rem}
 .co.i{background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.2)}
 .co.w{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2)}
-::-webkit-scrollbar{width:5px}
+.co.g{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2)}
+::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--bd);border-radius:3px}
 hr.sep{border:none;border-top:1px solid var(--bd);margin:2rem 0}
-.foot{margin-top:4rem;padding-top:1.5rem;border-top:1px solid var(--bd);color:var(--txtm);font-size:.75rem}
-@media(max-width:768px){nav{display:none}main{margin-left:0;padding:2rem 1rem}}
+.foot{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--bd);color:var(--txtm);font-size:.7rem}
+@media(max-width:768px){nav{display:none}main{margin-left:0;padding:1.5rem 1rem}}
 </style>
 </head>
 <body>
 
 <nav>
-  <h2>🧪 SmartCap<small>智能药瓶盖 · 项目文档</small></h2>
-  <div class="ns">
-    <div class="nst">概述</div>
-    <a href="#overview" class="ac">项目概述</a>
-    <a href="#why">为什么是瓶盖</a>
-    <a href="#road">路线图</a>
-  </div>
-  <div class="ns">
-    <div class="nst">Level 1 · 创业决策</div>
-    <a href="#ch1">Ch 1 · 项目背景</a>
-    <a href="#ch2">Ch 2 · 问题定义</a>
-    <a href="#ch3">Ch 3 · 市场机会</a>
-    <a href="#ch4">Ch 4 · 用户画像</a>
-    <a href="#ch6">Ch 6 · 痛点分析</a>
-    <a href="#ch7">Ch 7 · 全球竞品</a>
-    <a href="#ch8">Ch 8 · 国内竞品</a>
-    <a href="#ch11">Ch 11 · PRD<span class="st w">进行中</span></a>
-    <a href="#ch12">Ch 12 · 产品矩阵</a>
-    <a href="#ch26">Ch 26 · 商业模式</a>
-    <a href="#ch27">Ch 27 · 成本分析</a>
-    <a href="#ch31">Ch 31 · 法规合规</a>
-    <a href="#ch32">Ch 32 · 风险评估</a>
-  </div>
-  <div class="ns">
-    <div class="nst">Level 2 · 产品研发</div>
-    <a href="#">Ch 14-25<span class="st">待开始</span></a>
-  </div>
-  <div class="ns">
-    <div class="nst">Level 3 · 商业落地</div>
-    <a href="#">Ch 29-30<span class="st">待开始</span></a>
-  </div>
+  <h2>🧪 SmartCap<small>智能药瓶盖 · 全量文档 v0.3</small></h2>
+  <div class="ns"><div class="nst">概述</div>
+    <a href="#overview" class="ac">项目概述</a><a href="#why">为什么是瓶盖</a><a href="#road">路线图</a></div>
+  <div class="ns"><div class="nst">Level 1 · 创业决策</div>
+    <a href="#ch1">Ch 1 · 项目背景</a><a href="#ch2">Ch 2 · 问题定义</a><a href="#ch3">Ch 3 · 市场机会</a>
+    <a href="#ch4">Ch 4 · 用户画像</a><a href="#ch5">Ch 5 · 用户旅程</a><a href="#ch6">Ch 6 · 痛点分析</a>
+    <a href="#ch7">Ch 7 · 全球竞品</a><a href="#ch8">Ch 8 · 国内竞品</a><a href="#ch9">Ch 9 · 专利分析</a>
+    <a href="#ch10">Ch 10 · 产品愿景</a><a href="#ch11">Ch 11 · PRD</a><a href="#ch12">Ch 12 · 产品矩阵</a><a href="#ch13">Ch 13 · 功能树</a>
+    <a href="#ch26">Ch 26 · 商业模式</a><a href="#ch27">Ch 27 · 成本分析</a><a href="#ch28">Ch 28 · 定价策略</a>
+    <a href="#ch29">Ch 29 · 销售渠道</a><a href="#ch30">Ch 30 · 品牌建设</a><a href="#ch31">Ch 31 · 法规合规</a><a href="#ch32">Ch 32 · 风险评估</a></div>
+  <div class="ns"><div class="nst">Level 2 · 产品研发</div>
+    <a href="#ch14">Ch 14 · 总体架构</a><a href="#ch15">Ch 15 · 硬件方案</a><a href="#ch16">Ch 16 · 固件设计</a>
+    <a href="#ch20">Ch 20 · 工业设计</a><a href="#ch21">Ch 21 · 结构设计</a><a href="#ch22">Ch 22 · BOM 清单</a>
+    <a href="#ch23">Ch 23 · PCB 设计</a><a href="#ch25">Ch 25 · 测试方案</a></div>
+  <div class="ns"><div class="nst">Level 3 · 商业落地</div>
+    <a href="#ch29">Ch 29 · 销售渠道</a><a href="#ch30">Ch 30 · 品牌建设</a>
+    <a href="#ch33">Ch 33-40 · AI 方法论</a></div>
 </nav>
 
 <main>
@@ -85,37 +72,27 @@ hr.sep{border:none;border-top:1px solid var(--bd);margin:2rem 0}
 <h1 id="overview">🧪 Project SmartCap</h1>
 <p><strong>AI 驱动的智能药瓶盖创业项目</strong> · 让吃药不再靠记忆。</p>
 
-<div class="co i">
-  <strong>当前阶段：Level 1 — 创业决策</strong><br>
-  目标：回答"这个项目值不值得做"，产出 Go / No-Go 决策。
-</div>
+<div class="co i"><strong>当前阶段：Level 1 创业决策完成，Level 2 产品研发启动</strong><br>目标：回答"这个项目值不值得做"→"这个产品怎么做"→"怎么卖"</div>
+<div class="co g">📖 GitHub: <a href="https://github.com/Frankhe303/smartcap" style="color:var(--gn)">github.com/Frankhe303/smartcap</a> · 每次讨论后更新</div>
 
 <hr class="sep">
 
 <h2 id="why">为什么是瓶盖，不是智能药盒？</h2>
-
-<table>
-  <tr><th></th><th>SmartCap 药瓶盖</th><th>传统智能药盒</th></tr>
-  <tr><td>使用方式</td><td>替换原盖，直接拧上</td><td>需要把药从原瓶倒进格子</td></tr>
-  <tr><td>操作步骤</td><td>0 步 — 开盖即记录</td><td>3 步 — 开瓶→倒入→关盖</td></tr>
-  <tr><td>老人接受度</td><td>高，不改变习惯</td><td>低，"麻烦"</td></tr>
-  <tr><td>价格</td><td>BOM ¥20，售价 ¥69</td><td>¥50-200</td></tr>
-  <tr><td>多药</td><td>每种药一个盖</td><td>一个盒子管所有</td></tr>
-</table>
-
-<div class="co i">
-  <strong>核心洞察：</strong>改变老年人行为的成本极高。瓶盖方案不改变习惯、不增加操作。
-</div>
+<table><tr><th></th><th>SmartCap 药瓶盖</th><th>传统智能药盒</th></tr>
+<tr><td>使用方式</td><td>替换原盖直接拧上</td><td>把药从原瓶倒进格子</td></tr>
+<tr><td>操作步骤</td><td>0 步 — 开盖自动记录</td><td>3 步 — 开瓶→分类倒入→关盖</td></tr>
+<tr><td>老人接受度</td><td>高，不改变习惯</td><td>低，"麻烦，不弄"</td></tr>
+<tr><td>成本/售价</td><td>BOM ¥20 / 售价 ¥69</td><td>¥50-200</td></tr>
+<tr><td>多药管理</td><td>每种药一个盖子</td><td>一个盒子管所有</td></tr>
+<tr><td>便携性</td><td>和药瓶一样</td><td>额外体积</td></tr></table>
+<div class="co i"><strong>核心洞察：</strong>改变老年人行为成本极高。瓶盖"不改变习惯、不增加操作"。</div>
 
 <h2 id="road">产品路线图</h2>
-
-<table>
-  <tr><th>版本</th><th>功能</th><th>硬件</th><th>时间</th></tr>
-  <tr><td><strong>V1 · Lite</strong></td><td>LCD计时 + 蜂鸣提醒 + 纽扣电池</td><td>MCU + LCD + 蜂鸣器</td><td>4w打样/8w量产</td></tr>
-  <tr><td><strong>V2 · Standard</strong></td><td>+ BLE + APP + 云同步</td><td>+ BLE模块</td><td>TBD</td></tr>
-  <tr><td><strong>V3 · Pro</strong></td><td>+ AI健康报告 + 家属提醒</td><td>+ NFC</td><td>TBD</td></tr>
-  <tr><td><strong>V4 · Enterprise</strong></td><td>+ 养老院批量管理平台</td><td>+ LoRa</td><td>TBD</td></tr>
-</table>
+<table><tr><th>版本</th><th>功能</th><th>硬件</th><th>BOM</th><th>售价</th><th>时间</th></tr>
+<tr><td><strong>V1 Lite</strong></td><td>LCD计时 + 蜂鸣提醒</td><td>MCU + LCD + 蜂鸣器 + 纽扣电池</td><td>¥20</td><td>¥69</td><td>4w打样 / 8w量产</td></tr>
+<tr><td><strong>V2 Standard</strong></td><td>+ BLE + APP + 云端记录</td><td>+ BLE SoC</td><td>¥28</td><td>¥99</td><td>+8w</td></tr>
+<tr><td><strong>V3 Pro</strong></td><td>+ AI 健康报告 + 家属提醒</td><td>+ NFC / 更大电池</td><td>¥35</td><td>¥149</td><td>+12w</td></tr>
+<tr><td><strong>V4 Enterprise</strong></td><td>+ 机构管理平台</td><td>+ LoRa 网关</td><td>¥40</td><td>批量 ¥40-60</td><td>+16w</td></tr></table>
 
 <hr class="sep">
 
@@ -123,196 +100,556 @@ hr.sep{border:none;border-top:1px solid var(--bd);margin:2rem 0}
 
 <h2 id="ch1">Chapter 1 · 项目背景</h2>
 
-<h3>1.1 药物依从性危机</h3>
-<p>全球慢性病患者按时服药比例 <strong>不足 50%</strong>（WHO）。发展中国家更低。不按时服药的后果：</p>
-<ul>
-  <li>美国每年约 <strong>12.5 万人</strong> 死于不依从用药</li>
-  <li>可避免医疗支出 <strong>$1,000-3,000 亿/年</strong></li>
-  <li>住院率增加 <strong>10 倍</strong></li>
-</ul>
+<h3>1.1 药物依从性：被忽视的全球危机</h3>
+<p>WHO 数据显示，发达国家长期治疗依从率平均仅 <strong>50%</strong>，发展中国家更低。全球慢性病患者中，<strong>每两人就有一人没按时吃药</strong>。</p>
+<p>数字背后的代价：</p>
+<ul><li>美国每年 <strong>12.5 万人</strong> 死于不依从用药（超过车祸+枪击总和）</li>
+<li>可避免医疗支出 <strong>$1,000-3,000 亿/年</strong></li>
+<li>住院率提高 <strong>10 倍</strong>，死亡率提高 <strong>2 倍</strong></li></ul>
+<p>核心原因并非"不愿吃"，而是<strong>"忘了有没有吃"</strong>。这是一个设计问题——现有药瓶没有任何反馈机制告诉用户"刚才开过盖"。</p>
 
-<h3>1.2 老龄化趋势</h3>
-<p>中国 60 岁以上人口 <strong>2.8 亿</strong>（19.8%），空巢老人 <strong>1.2 亿</strong>。80% 的老年人每天至少服用 1 种处方药，30% 服用 5 种以上。</p>
+<h3>1.2 中国老龄化：一个 2.8 亿人的确定性市场</h3>
+<ul><li>60 岁以上人口 <strong>2.8 亿</strong>（占总人口 19.8%），每年新增 1,000 万+</li>
+<li>空巢老人约 <strong>1.2 亿</strong>，子女异地无法每日照看</li>
+<li>80% 老年人每天至少服用 1 种处方药，30% 服用 <strong>5 种以上</strong></li>
+<li>"忘记有没有吃"是老年人用药<strong>最普遍</strong>的困扰</li></ul>
 
-<h3>1.3 为什么选择智能药瓶盖</h3>
-<ul>
-  <li><strong>市场空白</strong>：全球仅 TimerCap/e-pill 做此品类，中国市场零覆盖</li>
-  <li><strong>BOM 极低</strong>：¥20，售价 ¥69，利润率 54%</li>
-  <li><strong>制造简单</strong>：公模外壳 + PCB + LCD，4 周出样</li>
-  <li><strong>零认证</strong>：非医疗器械，一般电子产品</li>
-  <li><strong>痛点极强</strong>："吃没吃过？"每个服药者的每日一问</li>
-</ul>
+<h3>1.3 选择智能药瓶盖的六个理由</h3>
+<table><tr><th>理由</th><th>细节</th></tr>
+<tr><td>市场空白</td><td>全球仅 TimerCap 一家做替换式计时瓶盖，中国市场完全空白</td></tr>
+<tr><td>BOM 极低</td><td>¥20 物料成本，启动资金不到 ¥6,000</td></tr>
+<tr><td>制造简单</td><td>公模外壳 + MCU + LCD + 电池，无开模，嘉立创打样</td></tr>
+<tr><td>零认证</td><td>非医疗器械，不含无线，属于一般消费电子产品</td></tr>
+<tr><td>痛点极强</td><td>"吃没吃过"是每个服药者每天面对的问题</td></tr>
+<tr><td>AI 赋能空间大</td><td>从简单计时器可逐步升级为 AI 健康管理平台</td></tr></table>
 
 <h2 id="ch2">Chapter 2 · 问题定义</h2>
+<blockquote>"我刚才到底吃没吃药？" —— 每个服用多种药物的人每天至少问自己一次。</blockquote>
+<p>这不是记忆衰退的问题，是<strong>产品设计缺陷</strong>。现有的药瓶、药盒、药袋，全部依赖人的记忆——没有一种提供了"刚才是否打开过"的反馈。</p>
 
-<blockquote>"我刚才到底吃没吃药？" —— 老年人每天至少问自己一次</blockquote>
+<h3>2.1 问题分层</h3>
+<table><tr><th>层次</th><th>问题</th><th>影响人群</th><th>频次</th></tr>
+<tr><td>忘记吃</td><td>漏服导致治疗效果降低、病情恶化</td><td>所有长期服药者</td><td>每周 1-3 次</td></tr>
+<tr><td>重复吃</td><td>忘了已吃，再吃一次 = 药物过量</td><td>记忆力衰退老人</td><td>每月 1-2 次</td></tr>
+<tr><td>家属不知</td><td>子女无法确认父母是否按时吃药</td><td>异地子女</td><td>每天</td></tr>
+<tr><td>护工无法批量确认</td><td>养老院靠纸质表格记录，效率低，易出错</td><td>养老院护工</td><td>每班次</td></tr></table>
 
-<p>这不是记忆问题，是<strong>设计问题</strong>。现有药瓶完全依赖人的记忆，没有任何反馈机制。</p>
-
-<table>
-  <tr><th>人群</th><th>具体问题</th><th>频次</th></tr>
-  <tr><td>慢病老人</td><td>每天2-5种药，忘记是否已服</td><td>每天</td></tr>
-  <tr><td>术后患者</td><td>抗生素/止痛药严格按时</td><td>每4-8h</td></tr>
-  <tr><td>子女</td><td>不知父母是否吃药，焦虑</td><td>每天</td></tr>
-  <tr><td>养老院</td><td>50+老人管理，人工易出错</td><td>每班</td></tr>
-</table>
+<h3>2.2 为什么现有方案都不够好</h3>
+<table><tr><th>方案</th><th>问题</th></tr>
+<tr><td>靠记忆</td><td>老年人记忆力衰退，不可靠</td></tr>
+<tr><td>智能药盒（多格）</td><td>需要把药从原瓶倒进格子——多 3 步操作，老人不愿用</td></tr>
+<tr><td>手机闹钟</td><td>响了不代表吃了；关了闹钟继续睡/看电视</td></tr>
+<tr><td>子女每天打电话</td><td>效率低、老人嫌烦、无法持续</td></tr>
+<tr><td>保姆/护工</td><td>成本高、不可规模化</td></tr></table>
 
 <h2 id="ch3">Chapter 3 · 市场机会</h2>
 
-<table>
-  <tr><th>市场</th><th>TAM</th><th>SAM</th><th>SOM（首年）</th></tr>
-  <tr><td>中国</td><td>2.8亿老人 × 2盖 = 5.6亿个</td><td>城市慢病者 1亿个</td><td>5万个（0.05%）</td></tr>
-  <tr><td>全球</td><td>10亿服药者 × 2 = 20亿个</td><td>发达国家 2亿</td><td>2万个（Amazon）</td></tr>
-</table>
+<h3>3.1 市场规模测算</h3>
+<table><tr><th>市场</th><th>TAM（总可寻址）</th><th>SAM（可服务）</th><th>SOM（首年目标）</th></tr>
+<tr><td>🇨🇳 中国</td><td>2.8亿老人 × 2 盖 = <strong>5.6 亿个</strong></td><td>城市慢病患者 1 亿 × 1 盖 = 1 亿个</td><td>5 万个 (0.05%)</td></tr>
+<tr><td>🌏 全球</td><td>10 亿服药者 × 2 = <strong>20 亿个</strong></td><td>发达国家慢病患者 2 亿</td><td>2 万个 (Amazon)</td></tr>
+<tr><td>🏥 企业</td><td>全球养老院床位 1,500 万+</td><td>中国养老机构 4 万家</td><td>20 家试点</td></tr></table>
+<p>仅中国市场 0.1% 渗透率 = 100 万个瓶盖 = <strong>¥7,000 万营收</strong>。即使只做到 ¥1,000 万/年，对一个 2-3 人团队也是极好的结果。</p>
 
-<p>仅中国市场 0.1% 渗透率 = 100 万个 = <strong>¥7,000 万营收</strong>。</p>
+<h3>3.2 为什么是现在</h3>
+<ul><li>老龄化加速：每年新增 60+ 人口 1,000 万+，2035 年将达 4 亿</li>
+<li>孝心消费崛起：抖音"给爸妈买的好东西"品类年增长 40%+</li>
+<li>TimerCap 教育了市场但未占领：Amazon 401 reviews 证明需求真实存在，但它不卖中国</li>
+<li>中国供应链成熟：MCU/LCD/传感器全部国产，BOM 低至 ¥20</li>
+<li>AI 创业方法论成熟：ChatGPT/Claude 辅助设计 PCB、生成固件、编写市场文案</li></ul>
 
 <hr class="sep">
 
-<h1>PART II · 用户</h1>
+<h1>PART II · 用户研究</h1>
 
 <h2 id="ch4">Chapter 4 · 用户画像</h2>
 
-<table>
-  <tr><th>画像</th><th>描述</th><th>核心需求</th><th>决策者</th></tr>
-  <tr><td>👴 慢病老人</td><td>65-80岁，每天3-5种药</td><td>一眼知吃没吃</td><td>子女(70%)</td></tr>
-  <tr><td>💊 术后/抗生素</td><td>25-60岁，短期按时</td><td>定时提醒</td><td>自己</td></tr>
-  <tr><td>👪 子女</td><td>30-50岁，异地工作</td><td>远程知悉</td><td>自己(送父母)</td></tr>
-  <tr><td>🏥 养老院</td><td>管理50+老人</td><td>批量管理</td><td>机构采购</td></tr>
-</table>
+<h3>画像 1：慢病老人（核心用户）</h3>
+<table><tr><td>年龄</td><td>65-80 岁</td></tr>
+<tr><td>特征</td><td>高血压/糖尿病/冠心病，每天 3-5 种药。子女在外地。不太会用智能手机</td></tr>
+<tr><td>场景</td><td>早上 7 点吃完降压药，中午忘记到底吃没吃，"再吃怕过量，不吃怕血压高"</td></tr>
+<tr><td>需求</td><td>看一眼瓶盖就知道——数字显示"上次吃是 XX 小时前"，不用回忆</td></tr>
+<tr><td>决策者</td><td><strong>子女（70%）</strong>——买来送爸妈</td></tr></table>
 
-<h2 id="ch6">Chapter 6 · 痛点</h2>
+<h3>画像 2：术后/抗生素短期用户</h3>
+<table><tr><td>年龄</td><td>25-60 岁</td></tr>
+<tr><td>特征</td><td>手术后服用抗生素，严格要求每 8 小时一次。漏服有耐药风险</td></tr>
+<tr><td>需求</td><td>定时蜂鸣提醒 + "上次开盖时间"双重保障</td></tr>
+<tr><td>决策者</td><td><strong>自己</strong></td></tr></table>
 
-<table>
-  <tr><th>角色</th><th>痛点</th><th>强度</th></tr>
-  <tr><td>老人</td><td>"再吃怕过量，不吃怕漏"</td><td>⭐⭐⭐⭐⭐</td></tr>
-  <tr><td>子女</td><td>"今天吃药了吗？电话问他又嫌烦"</td><td>⭐⭐⭐⭐</td></tr>
-  <tr><td>养老院</td><td>"56人，谁没吃？手工勾表太慢"</td><td>⭐⭐⭐⭐⭐</td></tr>
-</table>
+<h3>画像 3：异地子女（购买决策者）</h3>
+<table><tr><td>年龄</td><td>30-50 岁</td></tr>
+<tr><td>特征</td><td>在一线城市工作，父母在老家独居。经常在抖音/小红书刷到"送爸妈好物"</td></tr>
+<tr><td>痛点</td><td>"不知道爸今天吃药没，打电话问又嫌我烦"</td></tr>
+<tr><td>需求</td><td>V1：买个盖子帮爸妈记住。V2：手机上能看到服药记录</td></tr></table>
+
+<h3>画像 4：养老院/护工（B2B）</h3>
+<table><tr><td>规模</td><td>中大型养老院 100-500 床位</td></tr>
+<tr><td>痛点</td><td>护工靠纸质表格记录 50+ 老人服药情况，效率低、易出错、无追溯</td></tr>
+<tr><td>需求</td><td>批量管理 + 巡查时一眼确认 + 异常自动报警（V4）</td></tr></table>
+
+<h2 id="ch5">Chapter 5 · 用户旅程</h2>
+
+<h3>5.1 核心旅程：子女买给爸（V1 Lite）</h3>
+<table><tr><th>阶段</th><th>触点</th><th>动作</th><th>情绪</th></tr>
+<tr><td>1. 触发</td><td>抖音/小红书</td><td>刷到"给爸妈的智能瓶盖"视频</td><td>😟 "我爸好像老忘吃药"</td></tr>
+<tr><td>2. 了解</td><td>商品详情页</td><td>看介绍：LCD计时、蜂鸣提醒、适配标准药瓶</td><td>🤔 "69 块不贵，试试"</td></tr>
+<tr><td>3. 购买</td><td>下单</td><td>买 2 个 ¥119（爸妈各一个）</td><td>😊 "孝心 +1"</td></tr>
+<tr><td>4. 收货</td><td>快递到家</td><td>爸收到包裹，子女电话指导"拧上就能用"</td><td>😐 老人："什么新奇玩意"</td></tr>
+<tr><td>5. 试用</td><td>瓶盖</td><td>拧上药瓶，打开→看到 LCD 显示"00:00"，盖上→开始计时</td><td>😲 "哦，真的有用"</td></tr>
+<tr><td>6. 日常</td><td>每天</td><td>早上开盖吃药，看一眼时间。下午再开盖，确认"上次是 6 小时前"</td><td>😌 安心</td></tr>
+<tr><td>7. 分享</td><td>电话</td><td>爸跟子女说："这个盖子好，再给你妈买一个"</td><td>😊 子女："真有用，值了"</td></tr></table>
+
+<h3>5.2 扩展旅程：V2 蓝牙版</h3>
+<table><tr><th>阶段</th><th>动作</th></tr>
+<tr><td>吃药</td><td>开盖 → 瓶盖记录 → 蓝牙同步到手机 APP</td></tr>
+<tr><td>家属查看</td><td>APP 上看到"爸 今天 07:23 已吃药"</td></tr>
+<tr><td>异常提醒</td><td>如果 10:00 还没吃，APP 推送"爸今天还没吃降压药"→ 子女打电话</td></tr>
+<tr><td>医生查看</td><td>月度服药依从性报告 → 调整处方</td></tr></table>
+
+<h2 id="ch6">Chapter 6 · 痛点分析</h2>
+<table><tr><th>角色</th><th>痛点</th><th>当前方案</th><th>痛点强度</th><th>付费意愿</th></tr>
+<tr><td>👴 慢病老人</td><td>"吃过药了吗？再吃怕过量，不吃怕漏"</td><td>靠记忆/日历√</td><td>⭐⭐⭐⭐⭐</td><td>中（子女代付）</td></tr>
+<tr><td>👪 异地子女</td><td>"不知道爸吃药没，电话问嫌烦"</td><td>每天打电话</td><td>⭐⭐⭐⭐</td><td><strong>高</strong>（¥69 毫不犹豫）</td></tr>
+<tr><td>🏥 养老院</td><td>"56 个老人，谁没吃？人工勾表太慢"</td><td>纸质表格</td><td>⭐⭐⭐⭐⭐</td><td>高（省人力）</td></tr>
+<tr><td>💊 药房</td><td>"患者复购率/依从性无法追踪"</td><td>无方案</td><td>⭐⭐⭐</td><td>中（B2B）</td></tr>
+<tr><td>🏥 保险公司</td><td>"慢病管理费用高，缺乏干预手段"</td><td>电话随访</td><td>⭐⭐⭐</td><td>中（B2B 数据服务）</td></tr></table>
 
 <hr class="sep">
 
-<h1>PART III · 竞品</h1>
+<h1>PART III · 竞品分析</h1>
 
-<h2 id="ch7">Chapter 7 · 全球竞品</h2>
+<h2 id="ch7">Chapter 7 · 全球竞品拆解</h2>
+<table><tr><th>产品</th><th>类型</th><th>价格</th><th>销量/评价</th><th>核心功能</th><th>弱点</th></tr>
+<tr><td><strong>TimerCap</strong></td><td>LCD 替换盖</td><td>$17.50/2pk</td><td>Amazon 401 reviews</td><td>距上次开盖时间</td><td>无蜂鸣、屏幕小、不卖中国、设计老旧</td></tr>
+<tr><td>e-pill Timer Cap</td><td>LCD 替换盖</td><td>~$30</td><td>小量</td><td>定时蜂鸣提醒</td><td>价格高、外观过时、品牌知名度低</td></tr>
+<tr><td>Pillsy</td><td>蓝牙盖+APP</td><td>$39</td><td>Amazon 300+ reviews</td><td>APP提醒、剂量记录、家庭共享</td><td>需 APP 配对（老人门槛高）、3 星评价、已停止更新</td></tr>
+<tr><td>AdhereTech</td><td>智能药瓶</td><td>企业定制</td><td>N/A</td><td>蜂窝网络、实时追踪、面向药企</td><td>B2B 不卖消费者、体积大、依赖网络</td></tr>
+<tr><td>Hero</td><td>桌面发药机</td><td>$30/月起</td><td>2K+ reviews</td><td>自动分配、订阅制、配药提醒</td><td>月费模式、体积大、只适合多药管理</td></tr>
+<tr><td>MedMinder</td><td>智能药盒</td><td>$50/月起</td><td>企业</td><td>多格、蜂窝、老年友好</td><td>贵、需要订阅</td></tr></table>
 
-<table>
-  <tr><th>产品</th><th>类型</th><th>价格</th><th>核心功能</th><th>弱点</th></tr>
-  <tr><td><strong>TimerCap</strong></td><td>LCD 替换盖</td><td>$17.50/2pk</td><td>距上次开盖时间</td><td>无蜂鸣、屏小、不卖中国</td></tr>
-  <tr><td>e-pill</td><td>LCD 替换盖</td><td>~$30</td><td>定时蜂鸣</td><td>价格高、外观旧</td></tr>
-  <tr><td>Pillsy</td><td>蓝牙盖</td><td>$39</td><td>APP提醒</td><td>需配APP，老人不会</td></tr>
-  <tr><td>Hero</td><td>发药机</td><td>$30-60/月</td><td>自动分配</td><td>订阅制、贵</td></tr>
-</table>
-
-<div class="co i">
-  <strong>结论：</strong>全球仅 TimerCap 和 e-pill 在做简单替换瓶盖，均未进入中国。SmartCap 差异化：LCD 更大 + 蜂鸣提醒 + ¥69 定价 vs $17.5。
-</div>
+<div class="co i"><strong>结论：</strong>全球仅 TimerCap 和 e-pill 在做"简单替换式计时瓶盖"这个品类。中国市场完全空白。SmartCap 的差异化明确：① LCD 更大更清晰 ② 蜂鸣提醒 ③ ¥69 定价（美国竞品 $17.5 在中国毫无价格优势）④ 本地化设计 + 孝心经济切入。</div>
 
 <h2 id="ch8">Chapter 8 · 国内竞品</h2>
+<table><tr><th>平台</th><th>搜索关键词</th><th>结果</th></tr>
+<tr><td>淘宝</td><td>"智能药瓶盖""吃药提醒瓶盖""计时药瓶盖""LCD瓶盖"</td><td><strong>未发现直接竞品</strong>。仅智能药盒（¥50-200）</td></tr>
+<tr><td>京东</td><td>同上</td><td>同淘宝</td></tr>
+<tr><td>1688</td><td>同上</td><td>仅空药瓶/药盒工厂，无电子计时瓶盖</td></tr>
+<tr><td>拼多多</td><td>同上</td><td>同淘宝</td></tr>
+<tr><td>抖音</td><td>"提醒吃药瓶盖""智能药瓶"</td><td>仅有 "智能药盒" 短视频带货</td></tr></table>
+<div class="co w"><strong>⚠️ 声明：</strong>上述搜索基于多搜索引擎 + API 分析。淘宝 APP 的实际搜索结果可能不同。建议手工在淘宝/拼多多 APP 内再次验证。如果确认无人做，这是一个<strong>罕见的品类空白</strong>。</div>
 
-<table>
-  <tr><th>平台</th><th>关键词</th><th>结果</th></tr>
-  <tr><td>淘宝/京东/1688/拼多多</td><td>"智能药瓶盖""吃药提醒瓶盖""计时药瓶盖"</td><td><strong>未发现直接竞品</strong></td></tr>
-</table>
+<h2 id="ch9">Chapter 9 · 专利分析</h2>
+<h3>9.1 已知相关专利</h3>
+<table><tr><th>专利号/方向</th><th>权利人</th><th>覆盖</th><th>影响</th></tr>
+<tr><td>TimerCap 瓶盖计时专利</td><td>TimerCap LLC</td><td>美国（USPTO）</td><td>仅限美国市场，不影响中国</td></tr>
+<tr><td>"显示上次开盖时间的药瓶盖"实用新型</td><td>未知</td><td>待查</td><td>需委托专利检索</td></tr>
+<tr><td>"带计时器的药瓶盖"相关专利</td><td>多个申请人</td><td>待查</td><td>可能已存在但未商业化</td></tr></table>
 
-<div class="co w">
-  <strong>⚠️</strong> 电商平台自动化搜索受限，需手工在淘宝 APP 再次验证。
-</div>
+<h3>9.2 专利策略建议</h3>
+<ul><li><strong>V1 阶段：</strong>申请中国实用新型专利——"一种显示距上次开盖时间的智能药瓶盖"，保护 LCD 计时 + 磁感应开盖检测 + 蜂鸣提醒的核心组合</li>
+<li><strong>规避策略：</strong>TimerCap 的美国专利在中国不适用，且其设计过于简单（仅 LED 闪烁），我们的 LCD + 蜂鸣 + 弹性适配结构具有显著差异</li>
+<li><strong>预算：</strong>中国实用新型专利申请费用约 ¥3,000-5,000（含代理费），授权周期 6-12 个月</li></ul>
 
 <hr class="sep">
 
 <h1>PART IV · 产品定义</h1>
 
-<h2 id="ch11">Chapter 11 · PRD — V1 Lite MVP</h2>
+<h2 id="ch10">Chapter 10 · 产品愿景</h2>
+<blockquote>
+<strong>Mission</strong> — 让每一个需要吃药的人，不再靠记忆来决定该不该吃药。<br>
+<strong>Vision</strong> — 成为全球最广泛使用的用药依从性智能配件。<br>
+<strong>Values</strong> — 简单（不改变习惯）、可靠（纽扣电池半年不用管）、尊重（不监视，只提醒）。
+</blockquote>
 
-<table>
-  <tr><th>维度</th><th>规格</th></tr>
-  <tr><td>显示</td><td>LCD 段码屏，"距上次开盖 HH:MM"</td></tr>
-  <tr><td>提醒</td><td>蜂鸣器，可选 2/4/6/8/12h 间隔</td></tr>
-  <tr><td>检测</td><td>霍尔传感器检测开盖</td></tr>
-  <tr><td>电池</td><td>CR2032 纽扣电池，续航 6-12 月</td></tr>
-  <tr><td>尺寸</td><td>直径 35mm × 高 28mm</td></tr>
-  <tr><td>重量</td><td>&lt; 30g</td></tr>
-  <tr><td>按键</td><td>1 个：重置/切换间隔</td></tr>
-  <tr><td>BOM</td><td>¥20</td></tr>
-  <tr><td>售价</td><td>¥69(单) / ¥119(双)</td></tr>
-  <tr><td>利润</td><td>54%(单)</td></tr>
-</table>
+<h3>品牌调性</h3>
+<p>不是"老年用品"，而是<strong>"给家人的科技关怀"</strong>。避免医疗感、强调生活感。包装像小米生态链产品——白色+极简+亲和。</p>
+
+<h2 id="ch11">Chapter 11 · PRD — V1 Lite MVP</h2>
+<h3>核心规格</h3>
+<table><tr><th>维度</th><th>规格</th><th>说明</th></tr>
+<tr><td><strong>显示</strong></td><td>LCD 段码屏</td><td>"距上次开盖 HH:MM"，字体大（≥8mm高），老人一眼看清</td></tr>
+<tr><td><strong>检测</strong></td><td>霍尔传感器（磁感应）</td><td>开盖→检测磁场变化→记录时间→重置计时器。非接触式，不受药粉污染</td></tr>
+<tr><td><strong>提醒</strong></td><td>压电蜂鸣器</td><td>定时提醒可选（关闭/2h/4h/6h/8h/12h），短按切换，长按关闭</td></tr>
+<tr><td><strong>按键</strong></td><td>1 个实体按键</td><td>短按：切换提醒间隔；长按 3s：手动重置计时器</td></tr>
+<tr><td><strong>电池</strong></td><td>CR2032 纽扣电池</td><td>续航 6-12 个月（LCD 只在开盖时刷新，功耗极低）</td></tr>
+<tr><td><strong>尺寸</strong></td><td>直径 35mm × 高 28mm</td><td>适配标准药瓶螺纹（GB/T 标准）</td></tr>
+<tr><td><strong>重量</strong></td><td>&lt; 30g（含电池）</td><td>不增加药瓶负担</td></tr>
+<tr><td><strong>防水</strong></td><td>IPX3（生活防水）</td><td>水溅、湿手拿药不影响</td></tr>
+<tr><td><strong>材质</strong></td><td>ABS（食品接触级）</td><td>不直接接触药品，无需 FDA</td></tr>
+<tr><td><strong>BOM</strong></td><td>¥20.0</td><td>详见 Ch 22 BOM 清单</td></tr>
+<tr><td><strong>售价</strong></td><td>¥69（单）/ ¥119（双）</td><td>详见 Ch 28 定价策略</td></tr></table>
+
+<h3>V1 明确不做的事</h3>
+<ul><li>❌ 蓝牙/WiFi/NFC（认证门槛高、增加 BOM ¥8-10）</li><li>❌ 手机 APP（开发周期长、提升用户门槛）</li><li>❌ 云端存储</li><li>❌ 多色 LED/复杂 UI（增加 BOM、降低续航）</li><li>❌ 声音播报（增加 BOM、耗电）</li></ul>
 
 <h2 id="ch12">Chapter 12 · 产品矩阵</h2>
+<table><tr><th></th><th>Lite V1</th><th>Standard V2</th><th>Pro V3</th><th>Enterprise V4</th></tr>
+<tr><td>LCD 计时</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+<tr><td>蜂鸣提醒</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+<tr><td>磁感应检测</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+<tr><td>蓝牙 BLE</td><td>—</td><td>✅</td><td>✅</td><td>✅</td></tr>
+<tr><td>手机 APP</td><td>—</td><td>✅</td><td>✅</td><td>✅</td></tr>
+<tr><td>云端记录</td><td>—</td><td>✅</td><td>✅</td><td>✅</td></tr>
+<tr><td>家属远程</td><td>—</td><td>✅</td><td>✅</td><td>✅</td></tr>
+<tr><td>AI 健康报告</td><td>—</td><td>—</td><td>✅</td><td>✅</td></tr>
+<tr><td>语音提醒</td><td>—</td><td>—</td><td>✅</td><td>✅</td></tr>
+<tr><td>多用户管理</td><td>—</td><td>—</td><td>—</td><td>✅ 护工端</td></tr>
+<tr><td>LoRa 网关</td><td>—</td><td>—</td><td>—</td><td>✅</td></tr>
+<tr><td>单价</td><td>¥69</td><td>¥99</td><td>¥149</td><td>批价 ¥40-60</td></tr></table>
 
-<table>
-  <tr><th></th><th>Lite V1</th><th>Std V2</th><th>Pro V3</th><th>Ent V4</th></tr>
-  <tr><td>LCD计时</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
-  <tr><td>蜂鸣</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
-  <tr><td>蓝牙</td><td>—</td><td>✅</td><td>✅</td><td>✅ LoRa</td></tr>
-  <tr><td>APP</td><td>—</td><td>✅</td><td>✅</td><td>✅</td></tr>
-  <tr><td>AI</td><td>—</td><td>—</td><td>✅</td><td>✅</td></tr>
-  <tr><td>多用户</td><td>—</td><td>—</td><td>—</td><td>✅</td></tr>
-  <tr><td>售价</td><td>¥69</td><td>¥99</td><td>¥149</td><td>批价</td></tr>
-</table>
+<h2 id="ch13">Chapter 13 · 功能树</h2>
+<pre><code>SmartCap V1 Lite
+├── 核心功能
+│   ├── 开盖检测（霍尔传感器 + 磁铁）
+│   │   ├── 检测开盖动作 → 记录时间戳
+│   │   ├── 检测合盖动作 → 刷新 LCD 显示
+│   │   └── 10 秒内重复开盖 → 忽略（防止误触发）
+│   ├── 计时显示（LCD 段码屏）
+│   │   ├── 显示格式：HH:MM（距上次开盖）
+│   │   ├── 超过 24h → 显示 "1D 2H"
+│   │   ├── 超过 99h → 显示 "--:--"（提醒换电池或重置）
+│   │   └── 屏幕刷新频率：仅在开/合盖时刷新（省电）
+│   └── 蜂鸣提醒
+│       ├── 可选间隔：关闭/2h/4h/6h/8h/12h
+│       ├── 提醒模式：持续蜂鸣 30 秒，按任意键停止
+│       └── 当前设置记忆（EEPROM 存储）
+├── 交互
+│   ├── 1 个实体按键
+│   │   ├── 短按：切换提醒间隔（轮询）
+│   │   └── 长按 3 秒：手动重置计时器
+│   └── 视觉反馈
+│       ├── LCD 下方小图标：🔔（提醒开启）/ 🔕（提醒关闭）
+│       └── 低电量图标闪烁
+└── 电源
+    ├── CR2032 纽扣电池（可更换）
+    ├── 续航：6-12 个月（正常使用）
+    ├── 低电量检测（< 2.4V）
+    └── 更换电池后设置保留（EEPROM）</code></pre>
 
 <hr class="sep">
 
 <h1>PART VIII · 商业模式</h1>
 
 <h2 id="ch26">Chapter 26 · 商业模式</h2>
+<h3>三阶段模型</h3>
 
-<h3>阶段一：D2C 硬件</h3>
-<ul><li>定价 ¥69/个, ¥119/双装</li><li>毛利：单个 ¥37.5 (54%)</li><li>渠道：抖音 + 天猫 + Amazon</li></ul>
+<table><tr><th>阶段</th><th>模式</th><th>收入来源</th><th>时间</th></tr>
+<tr><td><strong>Phase 1</strong></td><td>D2C 硬件零售</td><td>硬件销售（¥69/个）</td><td>Month 1-6</td></tr>
+<tr><td><strong>Phase 2</strong></td><td>硬件 + 订阅</td><td>硬件 ¥99 + APP ¥9.9/月</td><td>Month 7-18</td></tr>
+<tr><td><strong>Phase 3</strong></td><td>B2B + 数据服务</td><td>机构批量 + 药企合作 + 健康数据</td><td>Month 18+</td></tr></table>
 
-<h3>阶段二：订阅增值（V2）</h3>
-<ul><li>APP + 云端记录：¥9.9/月</li><li>家庭套餐：¥19.9/月，5个盖</li></ul>
+<h3>Phase 1 详细：D2C 硬件（当前）</h3>
+<ul><li>单品 ¥69，毛利 ¥37.5 (54%)，"两个装" ¥119 提高客单价</li><li>渠道：抖音小店（短视频+直播） + 天猫旗舰店 + Amazon FBA</li><li>营销："给爸妈的智能瓶盖" — 孝心经济 + 实用性双重驱动</li><li>成本结构：BOM ¥20 + 组装 ¥8 + 包装 ¥3 + 平台佣金 15% + 物流 ¥5 = 总成本 ¥46.4</li></ul>
 
-<h3>阶段三：B2B（V4）</h3>
-<ul><li>养老院批量 ¥40/个</li><li>药企患者依从性方案</li></ul>
+<h3>Phase 2 详细：硬件 + 订阅（V2 蓝牙版）</h3>
+<ul><li>V2 Standard 硬件 ¥99（BOM ¥28，更高毛利）</li><li>APP 订阅 ¥9.9/月（云端记录 + 月度健康报告）</li><li>家庭套餐 ¥19.9/月（最多 5 个瓶盖 + 家属共享 + AI分析）</li><li>LTV 模型：硬件毛利 ¥40 + 12 个月订阅 ¥120 = ¥160/用户</li></ul>
+
+<h3>Phase 3 详细：B2B（V4 Enterprise）</h3>
+<ul><li>养老院方案：¥40/盖 + LoRa 网关 ¥500 + 管理平台 ¥199/月</li><li>药企合作：免费送瓶盖给慢病患者 → 通过依从性数据帮药企验证疗效</li><li>保险合作：为投保人提供智能瓶盖 → 降低赔付率 → 保险分成</li></ul>
 
 <h2 id="ch27">Chapter 27 · 成本分析</h2>
+<h3>V1 Lite 单品成本全拆</h3>
+<table><tr><th>成本项</th><th>金额（¥）</th><th>占比</th><th>说明</th></tr>
+<tr><td>MCU（合泰 HT66F）</td><td>3.0</td><td>15%</td><td>8位 MCU，带 EEPROM，国产</td></tr>
+<tr><td>LCD 段码屏</td><td>6.0</td><td>30%</td><td>定制品，最小起订 500pcs</td></tr>
+<tr><td>霍尔传感器</td><td>1.5</td><td>7.5%</td><td>A3144 或类似</td></tr>
+<tr><td>蜂鸣器</td><td>1.5</td><td>7.5%</td><td>压电式 3V</td></tr>
+<tr><td>CR2032 电池座</td><td>1.0</td><td>5%</td><td>含纽扣电池</td></tr>
+<tr><td>PCB（双层板）</td><td>3.0</td><td>15%</td><td>嘉立创，直径 28mm 圆板</td></tr>
+<tr><td>外壳（ABS 公模）</td><td>2.5</td><td>12.5%</td><td>公模取壳，丝印 Logo</td></tr>
+<tr><td>磁铁 + 垫圈</td><td>1.0</td><td>5%</td><td>小磁铁嵌入盖内</td></tr>
+<tr><td>杂项（焊锡/导线/螺丝）</td><td>0.5</td><td>2.5%</td><td></td></tr>
+<tr><td><strong>BOM 合计</strong></td><td><strong>¥20.0</strong></td><td><strong>100%</strong></td><td></td></tr>
+<tr><td>组装（人工）</td><td>¥8.0</td><td>—</td><td>小批量手焊，量产可降至 ¥3</td></tr>
+<tr><td>包装（纸盒+说明书）</td><td>¥3.0</td><td>—</td><td></td></tr>
+<tr><td><strong>出厂成本</strong></td><td><strong>¥31.0</strong></td><td></td><td></td></tr></table>
 
-<table>
-  <tr><th>成本项</th><th>金额</th><th>占比</th></tr>
-  <tr><td>BOM</td><td>¥20.0</td><td>64.5%</td></tr>
-  <tr><td>组装</td><td>¥8.0</td><td>25.8%</td></tr>
-  <tr><td>包装</td><td>¥3.0</td><td>9.7%</td></tr>
-  <tr><td><strong>出厂成本</strong></td><td><strong>¥31.0</strong></td><td></td></tr>
-  <tr><td>平台佣金(15%)</td><td>¥10.4</td><td></td></tr>
-  <tr><td>物流</td><td>¥5.0</td><td></td></tr>
-  <tr><td><strong>总成本</strong></td><td><strong>¥46.4</strong></td><td></td></tr>
-  <tr><td colspan="2"><strong>净利润 ¥22.6/个 (33%)</strong></td></tr>
+<h3>电商成本与利润</h3>
+<table><tr><th>项目</th><th>金额</th><th>占售价</th></tr>
+<tr><td>出厂成本</td><td>¥31.0</td><td>44.9%</td></tr>
+<tr><td>平台佣金（天猫/抖音 ~5%）</td><td>¥3.5</td><td>5.0%</td></tr>
+<tr><td>达人带货佣金（15-20%）</td><td>¥10.4</td><td>15.0%</td></tr>
+<tr><td>物流（含包材）</td><td>¥5.0</td><td>7.2%</td></tr>
+<tr><td><strong>总成本</strong></td><td><strong>¥49.9</strong></td><td><strong>72.3%</strong></td></tr>
+<tr><td><strong>净利润/个</strong></td><td><strong>¥19.1</strong></td><td><strong>27.7%</strong></td></tr></table>
+<p>自营（无达人佣金）：净利润可达 ¥29.5/个 (42.8%)。<br>首批 500 套：总投入 ¥15,500，净利润 ¥9,550-14,750。</p>
+
+<h2 id="ch28">Chapter 28 · 定价策略</h2>
+<h3>价格锚点分析</h3>
+<table><tr><th>品类</th><th>代表产品</th><th>价格</th><th>用户心理</th></tr>
+<tr><td>药盒（普通）</td><td>一般塑料药盒</td><td>¥5-20</td><td>"就是个盒子"</td></tr>
+<tr><td>智能药盒</td><td>淘宝智能药盒</td><td>¥50-200</td><td>"带提醒功能的"</td></tr>
+<tr><td>智能手环</td><td>小米手环</td><td>¥169-299</td><td>"科技产品"</td></tr>
+<tr><td><strong>SmartCap</strong></td><td>单只/两只装</td><td><strong>¥69/¥119</strong></td><td>"给家人的关怀"</td></tr>
 </table>
 
-<p>首批 500 套：投入 ¥15,500，预期利润 ¥11,300。</p>
+<h3>定价理由</h3>
+<ul><li>¥69 <strong>低于"需要考虑一下"的心理门槛（¥100）</strong>——冲动购买区间</li><li>¥119 两只装提高客单价，鼓励"给爸妈各买一个"，也覆盖多药场景</li>
+<li>TimerCap 美国售 $17.50（约 ¥126）——我们 ¥69 具有明显的价格优势</li>
+<li>未来 V2 蓝牙版 ¥99，V3 AI 版 ¥149 ——价格梯队清晰</li></ul>
+
+<h2 id="ch29">Chapter 29 · 销售渠道</h2>
+<h3>Phase 1 渠道策略（Month 1-6）</h3>
+<table><tr><th>渠道</th><th>打法</th><th>预估占比</th></tr>
+<tr><td><strong>抖音小店</strong></td><td>① 自己拍短视频（"给老爸买了个这个"vlog 风格）② 找 10-20 个中老年/孝心类达人带货（佣金 20%）③ 尝试抖音直播（1-2h/天）</td><td>40%</td></tr>
+<tr><td><strong>天猫旗舰店</strong></td><td>开店（保证金 ¥10,000），优化标题关键词"智能药瓶盖""吃药提醒""送爸妈"，做基础评价</td><td>20%</td></tr>
+<tr><td><strong>小红书</strong></td><td>发种草笔记："给独居老爸买了这个瓶盖，他再也不用打电话问我吃没吃药了"</td><td>10%</td></tr>
+<tr><td><strong>微信/私域</strong></td><td>朋友圈 + 社群 + 小程序，老用户推荐返 ¥5</td><td>15%</td></tr>
+<tr><td><strong>Amazon FBA</strong></td><td>上架美国站，关键词 "pill timer cap""medication reminder"，差异化打法：Chinese quality + half price</td><td>15%</td></tr></table>
+
+<h3>Phase 2-3 渠道扩展</h3>
+<ul><li><strong>线下药房：</strong>与连锁药店（老百姓大药房等）合作，药房柜台陈列</li>
+<li><strong>养老机构：</strong>直接 Contact 养老院，提供免费试用 + 批量折扣</li>
+<li><strong>医院/社区卫生中心：</strong>通过慢病管理科推荐给患者</li>
+<li><strong>Kickstarter：</strong>海外众筹验证全球需求（V2 蓝牙版），同时获得第一批海外用户</li></ul>
+
+<h2 id="ch30">Chapter 30 · 品牌建设</h2>
+<h3>品牌定位</h3>
+<blockquote><strong>"SmartCap — 让吃药不用记忆"</strong><br>不是医疗器械品牌，而是"家庭健康科技"品牌——类似小米生态链的定位。</blockquote>
+
+<h3>品牌元素</h3>
+<table><tr><th>元素</th><th>方案</th></tr>
+<tr><td>品牌名</td><td><strong>SmartCap</strong>（海外）/ <strong>药记</strong> 或 <strong>盖念</strong>（国内备选）</td></tr>
+<tr><td>Slogan</td><td>"让吃药不用记忆" / "Never Forget Again"</td></tr>
+<tr><td>视觉</td><td>白色 + 浅蓝渐变，极简风格；包装像 Apple 配件盒</td></tr>
+<tr><td>IP 形象</td><td>可选：一个可爱的"小瓶盖"吉祥物（药丸机器人风格）</td></tr>
+<tr><td>内容策略</td><td>① 抖音/小红书：温情视频（子女视角） ② 公众号：老年人健康科普 ③ B站/知乎：极客拆解 + 研发日记</td></tr></table>
+
+<h3>0-1 品牌冷启动（无预算打法）</h3>
+<ul><li>研发日记 → B站/知乎："我一个人用 AI 设计了一款智能药瓶盖"（系列连载）</li><li>用户故事 → 小红书："给老爸买了 SmartCap，他用了三个月后的真实反馈"</li><li>极客背书 → 数码博主评测："拆解 ¥69 的智能瓶盖，看看做工值不值"</li></ul>
 
 <hr class="sep">
 
 <h1>PART IX · 法规与风险</h1>
 
 <h2 id="ch31">Chapter 31 · 法规合规</h2>
+<table><tr><th>认证</th><th>V1 Lite</th><th>V2 BLE</th><th>费用（估）</th><th>周期</th></tr>
+<tr><td>医疗器械注册（NMPA）</td><td>❌ 不需要</td><td>❌ 不需要</td><td>—</td><td>—</td></tr>
+<tr><td>FCC（美国无线）</td><td>❌ 不适用</td><td>✅ 必需</td><td>~$3,000</td><td>4-6w</td></tr>
+<tr><td>CE RED（欧洲无线）</td><td>❌ 不适用</td><td>✅ 必需</td><td>~$5,000</td><td>6-8w</td></tr>
+<tr><td>SRRC（中国无线）</td><td>❌ 不适用</td><td>✅ 必需</td><td>~¥3,000</td><td>4-6w</td></tr>
+<tr><td>RoHS（环保）</td><td>🔶 建议</td><td>✅ 建议</td><td>~¥2,000</td><td>2-3w</td></tr>
+<tr><td>3C 强制认证</td><td>❌ USB 5V 以下</td><td>❌ USB 5V 以下</td><td>—</td><td>—</td></tr></table>
+<div class="co g"><strong>V1 Lite 最大优势：零认证费。</strong>非医疗器械 + 不含无线 + 3V 电池 = 属于一般消费电子产品，可直接在国内电商上线。仅亚马逊欧洲站可能需要 CE。</div>
 
-<table>
-  <tr><th>认证</th><th>V1 是否需要</th><th>费用</th></tr>
-  <tr><td>医疗器械注册</td><td>❌ 不需要（定位为电子日用品）</td><td>N/A</td></tr>
-  <tr><td>FCC</td><td>❌ V1 无无线，不需要</td><td>~$3,000(V2)</td></tr>
-  <tr><td>CE/RoHS</td><td>🔶 建议做 RoHS</td><td>~¥2,000</td></tr>
-</table>
-
-<div class="co w">
-  <strong>V1 Lite 核心优势：</strong>不含蓝牙/无线，非医疗器械，可<strong>零认证费</strong>快速上市。
-</div>
+<h3>合规红线</h3>
+<ul><li><strong>绝不声称"治疗""诊断"功能</strong>——定位为"计时器""提醒工具""电子日用品"</li><li>包装/说明书不出现"医疗器械""医用""治疗"等字样</li><li>V2 蓝牙版必须提前申请 SRRC（中国），否则可能被下架罚款</li></ul>
 
 <h2 id="ch32">Chapter 32 · 风险评估</h2>
+<table><tr><th>风险</th><th>概率</th><th>影响</th><th>等级</th><th>应对</th></tr>
+<tr><td>TimerCap 进入中国</td><td>低</td><td>中</td><td>🟡</td><td>价格优势+本地化+先发优势；他们 10 年都没来</td></tr>
+<tr><td>被淘宝商家仿制</td><td>中</td><td>高</td><td>🟡</td><td>申请实用新型专利；品牌建设；快速迭代 V2</td></tr>
+<tr><td>药瓶螺纹不兼容</td><td>中</td><td>低</td><td>🟢</td><td>弹性适配设计+附赠两种尺寸硅胶垫圈</td></tr>
+<tr><td>老人不会用</td><td>中</td><td>中</td><td>🟡</td><td>一个按键+一个数字；包装附卡片"拧上就能用，不用学"</td></tr>
+<tr><td>供应链断供</td><td>低</td><td>低</td><td>🟢</td><td>MCU/LCD 均为通用型号，可多供应商</td></tr>
+<tr><td>竞品价格战</td><td>中</td><td>中</td><td>🟡</td><td>品牌溢价+功能差异化（蜂鸣+大屏+弹性适配）</td></tr>
+<tr><td>退货率高</td><td>中</td><td>低</td><td>🟢</td><td>说明书清晰；视频教程二维码；30 天无理由退货</td></tr></table>
 
-<table>
-  <tr><th>风险</th><th>等级</th><th>应对</th></tr>
-  <tr><td>TimerCap 进入中国</td><td>🟡中低</td><td>价格优势 + 本地化 + 先发</td></tr>
-  <tr><td>被仿制</td><td>🟡中</td><td>实用新型专利 + 品牌</td></tr>
-  <tr><td>药瓶不兼容</td><td>🟢低</td><td>弹性适配 + 双尺寸垫圈</td></tr>
-  <tr><td>老人不会用</td><td>🟡中</td><td>一个键 + 一个数字 = 一眼懂</td></tr>
-</table>
+<hr class="sep">
+
+<h1>PART V · 技术路线（Level 2）</h1>
+
+<h2 id="ch14">Chapter 14 · 总体架构</h2>
+<pre><code>┌──────────────────────────────────────────────┐
+│                    SmartCap V1                │
+├──────────────────────────────────────────────┤
+│  ┌─────────┐   ┌─────────┐   ┌────────────┐  │
+│  │ 霍尔传感器│ → │  MCU    │ → │ LCD 段码屏  │  │
+│  │(开盖检测) │   │HT66Fxxx │   │  HH:MM     │  │
+│  └─────────┘   │         │   └────────────┘  │
+│                │EEPROM   │                    │
+│  ┌─────────┐   │(存储设置)│   ┌────────────┐  │
+│  │  按键    │ → │         │ → │  蜂鸣器     │  │
+│  │(单按键)  │   │  GPIO   │   │  (提醒)     │  │
+│  └─────────┘   └─────────┘   └────────────┘  │
+│                      │                        │
+│                 ┌────┴────┐                   │
+│                 │ CR2032  │                   │
+│                 │  3V     │                   │
+│                 └─────────┘                   │
+└──────────────────────────────────────────────┘</code></pre>
+
+<p>V1 架构极简：MCU 为中心，外接 4 个外设（霍尔传感器、LCD、蜂鸣器、按键），CR2032 供电。无无线模块、无外置晶振（用内部 RC 振荡器）、无稳压器（3V 直驱）。</p>
+
+<h2 id="ch15">Chapter 15 · 硬件方案</h2>
+<h3>15.1 MCU 选型</h3>
+<table><tr><th>型号</th><th>厂商</th><th>价格</th><th>优点</th><th>缺点</th></tr>
+<tr><td><strong>HT66F0185</strong></td><td>合泰 Holtek</td><td>¥2.5</td><td>8bit，内置 EEPROM，低功耗（0.1μA 休眠），3V 直驱</td><td>ROM 2KB，需要汇编或 C</td></tr>
+<tr><td>STM8S003F3</td><td>ST</td><td>¥2.8</td><td>8KB Flash，128B EEPROM，生态好</td><td>功耗略高</td></tr>
+<tr><td><strong>STM32G030F6</strong></td><td>ST</td><td>¥3.5</td><td>ARM M0+，32KB Flash，功耗低，生态最好</td><td>略贵，3V 供电临界</td></tr>
+<tr><td>Padauk PMS150C</td><td>应广</td><td>¥0.5</td><td>极便宜，国产</td><td>OTP 一次性编程，开发工具差</td></tr></table>
+<div class="co i"><strong>推荐：STM32G030F6</strong>（备选 HT66F0185）。STM32 生态成熟、功耗可控、中文资料丰富。价格多 ¥1 但开发效率高 10 倍。</div>
+
+<h3>15.2 霍尔传感器</h3>
+<ul><li>型号：A3144（单极性霍尔开关，¥1.0）或 DRV5032（TI，¥1.5）</li><li>方案：瓶盖内置小磁铁，MCU 旁装霍尔传感器。合盖→磁铁靠近→霍尔输出低；开盖→磁铁远离→霍尔输出高→MCU 中断唤醒→记录时间</li></ul>
+
+<h3>15.3 LCD 段码屏</h3>
+<ul><li>类型：HTN 段码 LCD（无背光），透射/反射式</li><li>驱动：MCU 直接驱动（4 COM × 8 SEG = 32 段，足够显示 HH:MM + 图标）</li><li>尺寸：27×18mm 可视区域，字体高度 8-10mm</li><li>供应商：深圳立创或东莞 LCD 厂，500pcs 起订约 ¥5-6/pcs</li></ul>
+
+<h3>15.4 蜂鸣器</h3>
+<ul><li>型号：压电蜂鸣器 3V（无源），频率 4kHz</li><li>驱动：MCU PWM 输出直接驱动（加三极管放大）</li><li>音量：≥75dB @10cm</li></ul>
+
+<h3>15.5 功耗估算</h3>
+<table><tr><th>模式</th><th>电流</th><th>占比</th></tr>
+<tr><td>休眠（合盖状态）</td><td>~1μA</td><td>99.9% 时间</td></tr>
+<tr><td>LCD 刷新（开盖瞬间）</td><td>~50μA × 0.5s</td><td>< 0.01%</td></tr>
+<tr><td>蜂鸣（提醒时）</td><td>~5mA × 30s</td><td>< 0.1%（每天 2-4 次）</td></tr></table>
+<p>CR2032 容量 225mAh → <strong>续航 12-18 个月</strong>（远超 6 个月设计目标）。</p>
+
+<h2 id="ch16">Chapter 16 · 固件设计</h2>
+<h3>16.1 状态机</h3>
+<pre><code>      ┌──────────┐
+      │  合盖休眠 │ ← 默认状态，MCU 深度休眠
+      └────┬─────┘
+           │ 霍尔中断（开盖）
+           ▼
+      ┌──────────┐
+      │  开盖记录 │ 记录当前 RTC 时间 → 存储到 EEPROM
+      └────┬─────┘
+           │ 合盖
+           ▼
+      ┌──────────┐
+      │  更新显示 │ 计算 "当前时间 - 上次开盖时间" → LCD
+      └────┬─────┘
+           │
+           ▼
+      ┌──────────┐
+      │  检查提醒 │ 如果提醒开启 && 距上次服药 >= 设置间隔 → 蜂鸣
+      └────┬─────┘
+           │
+           ▼
+      ┌──────────┐
+      │  合盖休眠 │
+      └──────────┘</code></pre>
+
+<h3>16.2 核心算法</h3>
+<ul><li><strong>去抖：</strong>霍尔传感器读取 3 次，间隔 50ms，全部一致才算有效开/合盖</li>
+<li><strong>重复开盖过滤：</strong>合盖后 10 秒内再次开盖 → 不更新计时器（避免"拿了药忘了东西又打开"误触发）</li>
+<li><strong>超时处理：</strong>距上次开盖超 99 小时 → LCD 显示 "--:--"，提醒用户重置</li>
+<li><strong>低电量：</strong>电池电压 < 2.4V 时 LCD 低电量图标闪烁</li></ul>
+
+<h3>16.3 关键技术指标</h3>
+<ul><li>计时精度：±1 分钟/月（使用 MCU 内部低速 RC 振荡器 + 软件校准）</li><li>EEPROM 写入寿命：100,000 次（每次开盖写一次，每天 4 次 = 68 年）</li><li>唤醒延迟：< 1ms（霍尔中断到 MCU 活跃）</li></ul>
+
+<h2 id="ch20">Chapter 20 · 工业设计</h2>
+<h3>设计语言</h3>
+<ul><li><strong>圆润 + 极简</strong>：没有棱角，直径 35mm 适合手指抓握</li><li><strong>材质</strong>：上盖白色 ABS（磨砂），下壳半透明灰（可以看到内部 PCB 但不太明显）</li><li><strong>按键</strong>：侧面一个圆形微弧按键，防滑纹路，手指可盲操</li><li><strong>LCD 窗</strong>：上盖中心开透明亚克力窗，LCD 屏幕嵌在下面</li><li><strong>Logo</strong>：激光雕刻/丝印在产品侧面</li></ul>
+
+<h3>CMF（颜色/材质/表面处理）</h3>
+<table><tr><th>版本</th><th>颜色</th><th>材质</th><th>表面处理</th></tr>
+<tr><td>标准白</td><td>医疗白（#F5F5F5）</td><td>ABS</td><td>磨砂</td></tr>
+<tr><td>深空灰</td><td>深灰（#3A3A3A）</td><td>ABS</td><td>磨砂</td></tr>
+<tr><td>限定色</td><td>薄荷绿/樱花粉</td><td>ABS</td><td>磨砂</td></tr></table>
+
+<h2 id="ch21">Chapter 21 · 结构设计</h2>
+<h3>爆炸图结构</h3>
+<pre><code>┌──────────────────────┐
+│  上盖（ABS 磨砂白）     │ ← 激光雕刻 Logo
+│  ┌────────────────┐   │
+│  │ 透明 PC 窗      │   │ ← LCD 显示区
+│  └────────────────┘   │
+│  ○ (按键位)           │
+├──────────────────────┤
+│  PCB 圆板（直径28mm）   │ ← 正面 LCD，背面 MCU+电池
+├──────────────────────┤
+│  下壳（半透明灰 ABS）    │ ← 电池仓开口
+│  ┌──────┐            │
+│  │CR2032│            │ ← 可更换电池
+│  └──────┘            │
+├──────────────────────┤
+│  螺纹适配环            │ ← 弹性硅胶，适配不同药瓶
+└──────────────────────┘</code></pre>
+
+<h3>关键尺寸</h3>
+<ul><li>外径：35mm</li><li>总高度：28mm</li><li>螺纹适配范围：内径 18-30mm（弹性垫圈适配）</li><li>PCB 直径：28mm（圆形双层板）</li><li>LCD 可视区：20×12mm</li></ul>
+
+<h3>磁铁安装</h3>
+<ul><li>位置：上盖内侧边缘，规格：3×1mm 钕磁铁</li><li>对应PCB上的霍尔传感器位置</li><li>注意：磁铁距霍尔传感器 ≤ 3mm 才能可靠触发</li></ul>
+
+<h2 id="ch22">Chapter 22 · BOM 清单</h2>
+<table><tr><th>#</th><th>物料</th><th>型号/规格</th><th>数量</th><th>单价 ¥</th><th>小计 ¥</th><th>供应商</th></tr>
+<tr><td>1</td><td>MCU</td><td>STM32G030F6P6</td><td>1</td><td>3.5</td><td>3.5</td><td>立创/得捷</td></tr>
+<tr><td>2</td><td>LCD 段码屏</td><td>定制 HTN 4COM×8SEG</td><td>1</td><td>6.0</td><td>6.0</td><td>东莞 LCD 厂</td></tr>
+<tr><td>3</td><td>霍尔传感器</td><td>A3144EUA</td><td>1</td><td>1.0</td><td>1.0</td><td>立创</td></tr>
+<tr><td>4</td><td>蜂鸣器</td><td>压电 3V 无源 12mm</td><td>1</td><td>1.5</td><td>1.5</td><td>立创</td></tr>
+<tr><td>5</td><td>CR2032 电池座</td><td>贴片式 BS-6</td><td>1</td><td>0.8</td><td>0.8</td><td>立创</td></tr>
+<tr><td>6</td><td>CR2032 电池</td><td>Panasonic/Sony</td><td>1</td><td>1.5</td><td>1.5</td><td>1688</td></tr>
+<tr><td>7</td><td>磁铁</td><td>钕铁硼 3×1mm</td><td>1</td><td>0.3</td><td>0.3</td><td>1688</td></tr>
+<tr><td>8</td><td>按键</td><td>侧按微动开关 3×6mm</td><td>1</td><td>0.3</td><td>0.3</td><td>立创</td></tr>
+<tr><td>9</td><td>PCB</td><td>双层圆板 28mm</td><td>1</td><td>2.5</td><td>2.5</td><td>嘉立创</td></tr>
+<tr><td>10</td><td>外壳上盖</td><td>ABS 公模 35mm</td><td>1</td><td>1.5</td><td>1.5</td><td>1688</td></tr>
+<tr><td>11</td><td>外壳下壳</td><td>ABS 公模 35mm</td><td>1</td><td>1.0</td><td>1.0</td><td>1688</td></tr>
+<tr><td>12</td><td>透明窗</td><td>PC 圆形 22mm</td><td>1</td><td>0.2</td><td>0.2</td><td>1688</td></tr>
+<tr><td>13</td><td>硅胶垫圈</td><td>弹性适配环 2 种</td><td>2</td><td>0.2</td><td>0.4</td><td>1688</td></tr>
+<tr><td>14</td><td>焊锡/导线/螺丝</td><td></td><td>—</td><td>—</td><td>0.5</td><td></td></tr>
+<tr><td colspan="5"><strong>BOM 合计</strong></td><td><strong>¥21.0</strong></td><td></td></tr></table>
+
+<h2 id="ch23">Chapter 23 · PCB 设计要点</h2>
+<ul><li><strong>层数：</strong>2 层（Top: LCD + 按键 + 电池座；Bottom: MCU + 霍尔 + 蜂鸣器）</li><li><strong>板厚：</strong>0.8mm（节省空间）</li><li><strong>焊盘：</strong>LCD 用斑马条连接（焊接型连接器可选项）</li><li><strong>霍尔传感器布局：</strong>放在 PCB 边缘，对着上盖磁铁位置。标注磁铁安装方向</li><li><strong>天线（V2）：</strong>PCB 边缘预留倒 F 天线区域（V1 不焊贴）</li><li><strong>测试点：</strong>预留 3 个测试点（VCC/GND/SWD 编程口）</li></ul>
+
+<h2 id="ch25">Chapter 25 · 测试方案</h2>
+<h3>功能测试（100% 出厂检验）</h3>
+<table><tr><th>测试项</th><th>方法</th><th>标准</th></tr>
+<tr><td>开机自检</td><td>装入电池 → LCD 全显 1s → 显示计时</td><td>全显正常，无缺段</td></tr>
+<tr><td>霍尔检测</td><td>磁铁靠近霍尔传感器位置</td><td>LCD 计时重置为 00:00</td></tr>
+<tr><td>蜂鸣器</td><td>长按按键</td><td>蜂鸣声 ≥75dB</td></tr>
+<tr><td>按键</td><td>短按 5 次</td><td>每次切换间隔正常</td></tr>
+<tr><td>功耗</td><td>合盖后测电流</td><td>&lt; 5μA</td></tr></table>
+
+<h3>可靠性测试（抽检 5%）</h3>
+<table><tr><th>测试</th><th>条件</th><th>标准</th></tr>
+<tr><td>跌落</td><td>1m 落于木板，6 面各 1 次</td><td>无开裂、功能正常</td></tr>
+<tr><td>高温高湿</td><td>60°C / 90%RH / 48h</td><td>功能正常</td></tr>
+<tr><td>按键寿命</td><td>10 万次按压</td><td>功能正常</td></tr>
+<tr><td>电池寿命</td><td>模拟每天 4 次开盖</td><td>≥6 个月</td></tr></table>
+
+<hr class="sep">
+
+<h1>PART XI · AI 创业方法论（Level 3）</h1>
+
+<h2 id="ch33">Chapter 33-40 · AI 驱动的硬件创业</h2>
+
+<p>Project SmartCap 的开发过程本身，就是一篇"<strong>如何用 AI 做硬件创业</strong>"的实战教程。以下是关键方法：</p>
+
+<h3>33. AI 发现需求</h3>
+<ul><li>用 ChatGPT/Claude 分析 Reddit/知乎/豆瓣的"老年人""吃药"等相关帖子，提取高频痛点词汇</li><li>用 AI 对比 Amazon 评论（TimerCap 等），提取用户"还想要但产品没有"的功能</li><li>关键词："为什么没有""要是能…就好了""唯一的缺点是"</li></ul>
+
+<h3>34. AI 市场调研</h3>
+<ul><li>用 AI 搜索 + 汇总各电商平台（淘宝/Amazon）的同品类产品、价格、评价数</li><li>用 AI 估算 TAM/SAM/SOM（基于人口统计 + 电商数据）</li><li>生成竞品对比矩阵（如本文 Ch 7）</li></ul>
+
+<h3>35. AI 生成 PRD</h3>
+<ul><li>输入：用户痛点 + 竞品数据 + 技术约束（BOM < ¥25, 4 周打样）</li><li>输出：完整 PRD（功能、非功能、明确不做的事）</li></ul>
+
+<h3>36. AI 辅助 PCB 设计</h3>
+<ul><li>用 ChatGPT 生成 MCU 选型建议（对比 5+ 型号的功耗/价格/生态）</li><li>用 Claude 检查原理图（输入网表，AI 检查常见错误：去耦电容缺失、IO 电平不匹配）</li><li>AI 生成嘉立创打样参数</li></ul>
+
+<h3>37. AI 开发固件</h3>
+<ul><li>用 Claude/Copilot 生成 STM32 HAL 配置代码</li><li>AI 生成状态机逻辑 + 低功耗管理代码</li><li>AI 生成测试用例 + 边界条件</li></ul>
+
+<h3>38. AI 营销</h3>
+<ul><li>AI 生成 10 版抖音文案 A/B 测试："给老爸买了个 ¥69 的东西""独居老人最怕的事"</li><li>AI 生成小红书种草笔记（多个 KOL 风格）</li><li>AI 分析投放数据：哪个文案转化率最高 → 加投</li></ul>
+
+<h3>39. AI 运营</h3>
+<ul><li>AI 客服：用 ChatGPT 自动回复 90% 的用户问题</li><li>AI 差评分析：自动分类问题（质量问题/使用问题/物流问题）→ 针对性改进</li><li>AI 用户分群：购买 1 个 vs 2 个的用户画像差异 → 优化推荐策略</li></ul>
+
+<h3>40. AI 创业闭环</h3>
+<pre><code>AI 发现需求 → AI 市场分析 → AI 用户访谈辅助
+     ↓
+AI 竞品分析 → AI PRD → AI 设计 PCB
+     ↓
+AI 写固件 → AI 测试 → 人工试产
+     ↓
+AI 写文案 → 上架 → AI 分析销售数据
+     ↓
+用户反馈 → AI 分析差评 → AI 建议迭代方向
+     ↓
+下一代产品</code></pre>
 
 <footer class="foot">
-  <p>Project SmartCap · Version 0.2 · AI-Assisted Product Engineering · 2026-07-16</p>
-  <p><a href="https://github.com/Frankhe303/smartcap" style="color:var(--cy)">GitHub Repo</a> · 本项目的开发过程本身就是"如何用 AI 做硬件创业"的实战教程（Part XI）</p>
+  <p><strong>Project SmartCap</strong> · Version 0.3 · AI-Assisted Product Engineering · 2026-07-16</p>
+  <p>GitHub: <a href="https://github.com/Frankhe303/smartcap" style="color:var(--cy)">github.com/Frankhe303/smartcap</a></p>
+  <p>本文档从想法到完整产出耗时约 2 小时，全程 AI 辅助。这就是 AI Product Engineering。</p>
 </footer>
 
 </main>
