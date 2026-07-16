@@ -602,7 +602,296 @@ hr.sep{border:none;border-top:1px solid var(--bd);margin:2rem 0}
 <tr><td>跌落</td><td>1m 落于木板，6 面各 1 次</td><td>无开裂、功能正常</td></tr>
 <tr><td>高温高湿</td><td>60°C / 90%RH / 48h</td><td>功能正常</td></tr>
 <tr><td>按键寿命</td><td>10 万次按压</td><td>功能正常</td></tr>
-<tr><td>电池寿命</td><td>模拟每天 4 次开盖</td><td>≥6 个月</td></tr></table>
+<tr><td>电池寿命</td><td>模拟每天 4 次开盖</td><td>≥6 个月</td></tr>
+
+<h1>PART V（续）· 软件开发</h1>
+
+<h2 id="ch17">Chapter 17 · APP 设计（V2 蓝牙版）</h2>
+
+<h3>17.1 技术选型</h3>
+<table><tr><th>方案</th><th>优点</th><th>缺点</th><th>推荐</th></tr>
+<tr><td><strong>Flutter</strong></td><td>一套代码双端(Android+iOS)、热重载、UI 丰富</td><td>包体积略大(~15MB)、蓝牙库成熟度一般</td><td>✅ 推荐</td></tr>
+<tr><td>React Native</td><td>生态大、JS 程序员多</td><td>蓝牙库不稳定、性能略差</td><td></td></tr>
+<tr><td>微信小程序</td><td>国内用户零安装、即用即走</td><td>蓝牙 API 受限、iOS 后台限制</td><td>🔶 先做小程序</td></tr></table>
+<div class="co i"><strong>V2 策略：</strong>先做微信小程序（国内用户最快触达），再做 Flutter APP（海外 + 高级功能）。小程序可以验证需求，开发周期 2-3 周。</div>
+
+<h3>17.2 小程序功能模块</h3>
+<table><tr><th>模块</th><th>功能</th><th>优先级</th></tr>
+<tr><td>设备绑定</td><td>扫描附近 SmartCap BLE → 一键配对 → 命名（"爸的降压药"）</td><td>P0</td></tr>
+<tr><td>服药时间线</td><td>时间线展示每次开盖记录：今天 07:23 ✅ 12:15 ✅ 18:40 ✅</td><td>P0</td></tr>
+<tr><td>提醒设置</td><td>设置提醒间隔、免打扰时段（夜间不叫）、音量</td><td>P0</td></tr>
+<tr><td>家庭共享</td><td>邀请家人→家人可查看服药记录→异常时收到微信通知</td><td>P1</td></tr>
+<tr><td>月度报告</td><td>服药依从率 %、漏服天数、趋势图 → 可分享给医生</td><td>P1</td></tr>
+<tr><td>多设备管理</td><td>一个账号绑定多个瓶盖、分别命名、分别设置</td><td>P0</td></tr></table>
+
+<h3>17.3 小程序 UI 草图</h3>
+<pre><code>┌──────────────────────┐
+│  SmartCap            │  ← 顶部导航
+├──────────────────────┤
+│  👴 爸的降压药        │  ← 设备列表（多设备切换）
+│  💊 妈的心血管药      │
+├──────────────────────┤
+│      今天            │
+│  ┌─────────────────┐ │
+│  │ ✅ 07:23  氨氯地平│ │  ← 服药时间线
+│  │ ✅ 12:15  阿司匹林│ │
+│  │ ⏰ 18:00  辛伐他汀│ │  ← 还未到时间
+│  │ ❌ 22:00  降糖药  │ │  ← 已错过
+│  └─────────────────┘ │
+├──────────────────────┤
+│  本周依从率：85% ↗    │  ← 统计卡片
+│  本月趋势：████▌      │
+├──────────────────────┤
+│  [提醒设置] [家庭共享] │  ← 底部操作
+└──────────────────────┘</code></pre>
+
+<h2 id="ch18">Chapter 18 · 云平台架构（V2）</h2>
+
+<h3>18.1 总体架构</h3>
+<pre><code>┌──────────┐   BLE    ┌──────────┐   HTTPS   ┌──────────────┐
+│ SmartCap │ ←─────→ │  小程序   │ ←──────→ │  云平台 API   │
+│  (V2)    │          │  / APP   │          │              │
+└──────────┘          └──────────┘          ├──────────────┤
+                                             │ 用户服务      │
+                                             │ 设备服务      │
+                                             │ 记录服务      │
+                                             │ 通知服务      │
+                                             │ AI 分析(V3)   │
+                                             ├──────────────┤
+                                             │ PostgreSQL   │
+                                             │ Redis Cache  │
+                                             │ MQTT Broker  │
+                                             └──────────────┘</code></pre>
+
+<h3>18.2 技术选型</h3>
+<table><tr><th>组件</th><th>方案</th><th>月费</th><th>说明</th></tr>
+<tr><td>云服务商</td><td><strong>阿里云 · 轻量应用服务器</strong></td><td>¥68/月</td><td>2C4G，够支撑 10 万用户</td></tr>
+<tr><td>数据库</td><td>PostgreSQL (Supabase 托管)</td><td>免费层</td><td>前 500MB 免费，够用半年</td></tr>
+<tr><td>API 框架</td><td>Python FastAPI</td><td>—</td><td>异步、自动 OpenAPI 文档</td></tr>
+<tr><td>消息推送</td><td>微信订阅消息 + APNs/FCM</td><td>免费</td><td></td></tr>
+<tr><td>MQTT</td><td>EMQX 自建</td><td>—</td><td>V2 可选，V4 必须（LoRa 网关）</td></tr></table>
+
+<h3>18.3 数据库设计</h3>
+<pre><code>-- 核心表结构
+users:       id, wechat_openid, phone, name, created_at
+devices:     id, user_id, mac, name, medicine_name, remind_interval, created_at
+medication_logs: id, device_id, opened_at, reported_at (via BLE)
+family_members: id, user_id, member_user_id, relation, can_notify
+notifications: id, user_id, type, message, read, created_at</code></pre>
+
+<h3>18.4 API 设计</h3>
+<table><tr><th>端点</th><th>方法</th><th>功能</th></tr>
+<tr><td>/api/devices</td><td>GET/POST</td><td>获取/绑定设备</td></tr>
+<tr><td>/api/devices/:id/logs</td><td>GET</td><td>获取服药记录</td></tr>
+<tr><td>/api/devices/:id/settings</td><td>PUT</td><td>更新提醒设置</td></tr>
+<tr><td>/api/users/:id/report</td><td>GET</td><td>月/周服药报告</td></tr>
+<tr><td>/api/family/invite</td><td>POST</td><td>邀请家属</td></tr></table>
+
+<h2 id="ch19">Chapter 19 · AI 功能设计（V3 Pro）</h2>
+
+<h3>19.1 AI 能力矩阵</h3>
+<table><tr><th>AI 功能</th><th>实现方式</th><th>用户价值</th><th>阶段</th></tr>
+<tr><td><strong>依从性预测</strong></td><td>分析历史漏服模式 → 预测哪天可能漏 → 提前加强提醒</td><td>"上周二漏了，这周二提前提醒"</td><td>V3</td></tr>
+<tr><td><strong>智能提醒调优</strong></td><td>分析用户实际吃药时间 → 自动调整提醒时间</td><td>"您通常 7:15 吃，提醒调到 7:10"</td><td>V3</td></tr>
+<tr><td><strong>健康趋势分析</strong></td><td>服药依从率 + 自报症状 + 时间线 → 月度健康报告</td><td>"本月依从率 92%，比上月提高 8%"</td><td>V3</td></tr>
+<tr><td><strong>AI 用药助手</strong></td><td>拍照识别药品 → 自动设置提醒间隔 → 药物相互作用提醒</td><td>"氨氯地平+阿司匹林可同服 ✅"</td><td>V3</td></tr>
+<tr><td><strong>异常检测</strong></td><td>检测突然的服药模式变化 → 可能预示健康问题</td><td>"父亲本周漏服频率突然升高→通知家属"</td><td>V3</td></tr></table>
+
+<h3>19.2 AI 实现方案</h3>
+<ul><li><strong>模型选择：</strong>规则引擎（月度报告）+ 轻量 ML（依从性预测，用 scikit-learn 随机森林）+ LLM（AI 用药助手，调用 GPT-4o API）</li>
+<li><strong>部署：</strong>FastAPI + Celery 定时任务 + Redis 缓存分析结果</li>
+<li><strong>数据隐私：</strong>健康数据不出国（阿里云国内节点）、脱敏处理、用户可导出/删除</li></ul>
+
+<h3>19.3 V1 就可以做的"AI"</h3>
+<div class="co i"><strong>不需要等 V3！</strong>V1 的 EEPROM 可以记录最近 30 次开盖时间戳。子女用手机拍一下 LCD 屏幕，微信小程序 OCR 识别数字，自动生成简易服药记录——这是零硬件成本的"AI 功能"。</div>
+
+<h2 id="ch24">Chapter 24 · 软件开发流程</h2>
+<h3>24.1 固件开发环境</h3>
+<table><tr><th>工具</th><th>用途</th></tr>
+<tr><td>STM32CubeIDE</td><td>MCU 开发、调试、HAL 配置</td></tr>
+<tr><td>STM32CubeMX</td><td>引脚分配、时钟配置、功耗估算</td></tr>
+<tr><td>J-Link / ST-Link</td><td>调试器（¥50 淘宝山寨即可）</td></tr>
+<tr><td>逻辑分析仪</td><td>调试霍尔传感器/I2C/LCD 时序（¥30 淘宝）</td></tr>
+<tr><td>功耗分析仪</td><td>验证休眠电流 < 5μA（可选：Nordic PPK2 ¥200）</td></tr></table>
+
+<h3>24.2 固件版本管理</h3>
+<pre><code>smartcap-firmware/
+├── src/
+│   ├── main.c          # 主循环 + 状态机
+│   ├── hal.c           # 霍尔传感器读取 + 去抖
+│   ├── lcd.c           # LCD 段码屏驱动
+│   ├── buzzer.c        # 蜂鸣器 PWM 控制
+│   ├── rtc.c           # 软件 RTC + 计时
+│   ├── eeprom.c        # 设置存储/读取
+│   └── power.c         # 低功耗管理
+├── test/
+│   ├── test_sensors.c  # 传感器单元测试
+│   └── test_timing.c   # 计时精度测试
+└── Makefile / CMakeLists.txt</code></pre>
+
+<h3>24.3 CI/CD（持续集成）</h3>
+<ul><li><strong>GitHub Actions：</strong>每次 Push → 自动编译固件 → 运行单元测试（模拟目标）→ 生成 .hex/.bin</li>
+<li><strong>OTA 升级（V2）：</strong>小程序检测新固件 → BLE 传输 → MCU 内置 Bootloader 烧写</li>
+<li><strong>测试自动化：</strong>Python 脚本模拟霍尔传感器信号 → 验证 LCD 显示正确 → 验证蜂鸣触发</li></ul>
+
+<hr class="sep">
+
+<h1>PART V（续）· 制造与供应链</h1>
+
+<h2 id="ch_mfg">Chapter · 制造计划</h2>
+
+<h3>打样阶段（Month 1）</h3>
+<table><tr><th>步骤</th><th>时间</th><th>费用</th><th>产出</th></tr>
+<tr><td>PCB 设计 + 打样</td><td>1 周</td><td>¥50 (嘉立创 5 片)</td><td>5 块 PCB</td></tr>
+<tr><td>采购电子料</td><td>3 天</td><td>¥200 (得捷/立创)</td><td>5 套电子料</td></tr>
+<tr><td>手焊 5 套</td><td>2 天</td><td>¥0 (自己焊)</td><td>5 个工程样机</td></tr>
+<tr><td>外壳打样</td><td>1 周</td><td>¥200 (3D 打印)</td><td>5 套外壳</td></tr>
+<tr><td>固件开发 + 调试</td><td>2 周</td><td>—</td><td>V1 固件</td></tr>
+<tr><td><strong>打样合计</strong></td><td><strong>3 周</strong></td><td><strong>¥450</strong></td><td><strong>5 个功能样机</strong></td></tr></table>
+
+<h3>小批量试产（Month 2）</h3>
+<table><tr><th>步骤</th><th>时间</th><th>费用</th><th>产出</th></tr>
+<tr><td>PCB 批量（200 片）</td><td>1 周</td><td>¥500</td><td>200 片 PCB</td></tr>
+<tr><td>电子料批量采购</td><td>1 周</td><td>¥4,200</td><td>200 套电子料</td></tr>
+<tr><td>SMT 贴片（外包）</td><td>1 周</td><td>¥600</td><td>200 片 PCBA</td></tr>
+<tr><td>外壳批量注塑</td><td>2 周</td><td>¥3,000 (模具摊销)</td><td>200 套外壳</td></tr>
+<tr><td>组装 + 测试</td><td>1 周</td><td>¥1,600 (8元/个)</td><td>200 个成品</td></tr>
+<tr><td><strong>小批量合计</strong></td><td><strong>3 周</strong></td><td><strong>¥9,900</strong></td><td><strong>200 个可销售产品</strong></td></tr></table>
+
+<div class="co g"><strong>到第 8 周，总投入 ¥10,350，你手上就有 200 个可以卖的产品了。</strong>按 ¥69/个，全部卖出 = ¥13,800 营收 — ¥10,350 成本 = ¥3,450 利润。</div>
+
+<h3>量产阶段（Month 3+）</h3>
+<ul><li>首批 1,000 套：BOM ¥20 → 批量降到 ¥18；外壳开正式模具 ¥8,000（一次投入，终身使用）</li><li>SMT 贴片 ¥1/片（量大）→ 总成本降到 ¥26/个 → 利润 ¥43/个 (62%)</li><li>月产能：1,000-3,000 套（深圳代工厂）</li></ul>
+
+<hr class="sep">
+
+<h1>PART III（补充）· 深入 Level 3</h1>
+
+<h2 id="ch_gantt">Chapter · 开发甘特图</h2>
+<pre><code>Month 1          Month 2          Month 3          Month 4
+W1 W2 W3 W4      W5 W6 W7 W8      W9 W10 W11 W12   W13 W14 W15 W16
+████████████      ████            ██████████████    ████████████████  PCB+硬件
+    ████████████  ██              ██                ██                固件
+            ████  ████████████    ██                ██                外壳/模具
+                  ████████████    ████████████      ██                组装+测试
+                          ████    ████████████████  ████████████████  上线销售
+                                  ██                ████████████████  营销推广
+                                          ████████  ████████████████  V2研发启动
+▲                 ▲                ▲                ▲
+打样完成          小批量完成        首批1000上线      V1稳定,V2启动</code></pre>
+
+<h2 id="ch_team">Chapter · 团队与资源</h2>
+<h3>Phase 1 最小可行团队（1-2 人）</h3>
+<table><tr><th>角色</th><th>你可以自己做</th><th>需要外包/合作</th></tr>
+<tr><td>硬件工程师</td><td>✅ PCB 设计(立创EDA)、手焊调试</td><td>SMT 贴片(嘉立创)</td></tr>
+<tr><td>固件工程师</td><td>✅ STM32 开发、状态机、低功耗</td><td>—</td></tr>
+<tr><td>工业设计师</td><td>🔶 可以用 AI + Fusion360</td><td>外壳模具(1688 模具厂)</td></tr>
+<tr><td>小程序/APP</td><td>🔶 V2 才需要，可以学或用 AI 生成</td><td>V2 可外包(¥5,000-10,000)</td></tr>
+<tr><td>运营/客服</td><td>✅ 一个人初期够用</td><td>月销 >500 套后需要</td></tr>
+<tr><td>会计/法务</td><td>—</td><td>代理记账 ¥200/月</td></tr></table>
+
+<h3>Phase 1 启动预算（极简版）</h3>
+<table><tr><th>项目</th><th>金额</th><th>说明</th></tr>
+<tr><td>PCB 打样 + 电子料(5套)</td><td>¥450</td><td>手焊调试</td></tr>
+<tr><td>3D 打印外壳(5套)</td><td>¥200</td><td>验证尺寸</td></tr>
+<tr><td>开发工具(调试器/逻辑分析仪)</td><td>¥100</td><td>淘宝</td></tr>
+<tr><td>小批量 200 套</td><td>¥9,900</td><td>可销售</td></tr>
+<tr><td>包装设计 + 印刷(200套)</td><td>¥600</td><td>简易纸盒</td></tr>
+<tr><td>商标注册</td><td>¥300</td><td>中国商标(自己申请)</td></tr>
+<tr><td>实用新型专利申请</td><td>¥5,000</td><td>含代理费</td></tr>
+<tr><td><strong>总计</strong></td><td><strong>¥16,550</strong></td><td></td></tr></table>
+<div class="co g"><strong>¥17,000 以内就可以从零到有 200 个可销售的产品 + 商标 + 专利。</strong>这在硬件创业里是极低的门槛。</div>
+
+<h2 id="ch_kpi">Chapter · 关键里程碑与 KPI</h2>
+<table><tr><th>里程碑</th><th>时间</th><th>KPI</th></tr>
+<tr><td>M1 · 功能样机</td><td>第 3 周</td><td>5 个样机全部通过功能测试</td></tr>
+<tr><td>M2 · 小批量试产</td><td>第 8 周</td><td>200 个成品，良率 > 95%</td></tr>
+<tr><td>M3 · 上线销售</td><td>第 10 周</td><td>抖音/天猫店铺上线，首月 50 单</td></tr>
+<tr><td>M4 · 产品验证</td><td>第 14 周</td><td>累计 200 单，退货率 < 5%，好评 > 4.5 星</td></tr>
+<tr><td>M5 · 盈利拐点</td><td>第 20 周</td><td>月销 300+ 单，月利润 ¥6,000+</td></tr>
+<tr><td>M6 · V2 启动</td><td>第 24 周</td><td>V2 蓝牙版立项，小程序开发启动</td></tr>
+</table>
+
+<hr class="sep">
+
+<h1>PART XI（续）· AI 创业详细方法论</h1>
+
+<h2 id="ch33_detail">Ch 33-40 · 实操 AI Prompt 示例</h2>
+
+<h3>33. AI 发现需求 — 实战 Prompt</h3>
+<pre><code>你是一个产品研究员。请分析以下来自 Reddit 和知乎的 50 条关于"老年人吃药"的帖子，
+提取 TOP 10 高频痛点，按提及频率排序。
+对每个痛点给出：(1) 一句话描述 (2) 提及次数 (3) 现有解决方案 (4) 方案缺陷</code></pre>
+
+<h3>34. AI 市场调研 — 实战 Prompt</h3>
+<pre><code>请基于以下数据估算中国智能药瓶盖的 TAM/SAM/SOM：
+- 中国 60 岁以上人口 2.8 亿
+- 城市慢病患者 1 亿
+- 淘宝"智能药盒"月搜索量约 5 万
+- Amazon "pill timer" 月搜索量约 2 万
+请给出保守、基准、乐观三种估算。</code></pre>
+
+<h3>35. AI 生成 PRD — 实战 Prompt</h3>
+<pre><code>基于以下约束生成智能药瓶盖 V1 的 PRD：
+1. BOM < ¥25
+2. 4 周打样周期
+3. 用户画像：65-80 岁慢病老人
+4. 核心场景：每天忘记是否已吃药
+5. 不包含蓝牙/WiFi
+输出：(1) 功能需求 (2) 非功能需求 (3) 明确不做的事 (4) 成功指标</code></pre>
+
+<h3>36. AI 辅助 PCB — 实战 Prompt</h3>
+<pre><code>我需要为 STM32G030F6 设计一个低功耗计时器 PCB：
+- 外设：霍尔传感器 A3144、LCD 段码屏(4COM×8SEG)、压电蜂鸣器、CR2032 电池
+- 要求：休眠电流 <5μA、PCB 直径 <30mm 圆形、双层板
+请给出：(1) 原理图检查清单 (2) Layout 注意事项 (3) 去耦电容推荐 (4) 常见踩坑点</code></pre>
+
+<h3>37. AI 开发固件 — 实战 Prompt</h3>
+<pre><code>为 STM32G030F6 生成一个低功耗药瓶盖固件框架代码：
+1. 主状态机：休眠→开盖检测→记录时间→更新LCD→检查提醒→休眠
+2. 霍尔传感器去抖(3次读取,50ms间隔)
+3. 开盖10秒内重复开盖过滤
+4. 软件RTC(LSI校准)
+5. 蜂鸣PWM控制
+6. EEPROM存储提醒设置
+请用 HAL 库，注释中文。</code></pre>
+
+<h3>38. AI 营销文案 — 实战 Prompt</h3>
+<pre><code>你是小红书健康生活博主。写 3 篇种草文案推广智能药瓶盖：
+主题：(1) "给独居老爸买了这个 ¥69 的小东西" (2) "产后吃抗生素总忘，这个瓶盖救了我" (3) "养老院工作的表姐说这个瓶盖太好用了"
+要求：真实感、有故事、不硬广、配 3 个 emoji、带 # 标签</code></pre>
+
+<h3>39. AI 用户运营 — 实战 Prompt</h3>
+<pre><code>以下是 SmartCap 最近 50 条用户评价。请分类为：
+1. 好评（具体好在哪里）
+2. 中性
+3. 差评 → 进一步分类：产品质量 / 使用困难 / 物流 / 其他
+并给每条差评生成一条客服回复话术。
+最后给出 3 条产品改进建议（按影响大小排序）。</code></pre>
+
+<h3>40. 完整 AI 创业闭环 — 一页总结</h3>
+<pre><code>AI 发现需求 → AI 市场分析 → AI 用户访谈辅助
+     ↓                          (Claude分析访谈录音转录)
+AI 竞品分析 → AI PRD → AI 设计 PCB
+     ↓              ↓              ↓
+(爬Amazon评价)  (生成PRD模板)  (检查原理图+Layout)
+     ↓              ↓              ↓
+AI 写固件 → AI 测试 → 人工试产
+     ↓           ↓            ↓
+(生成HAL代码)  (生成测试用例) (你自己焊接)
+     ↓
+AI 写文案 → 上架 → AI 分析销售数据
+     ↓           ↓              ↓
+(10版A/B测试)  (抖音小店)   (自动分析转化率)
+     ↓
+用户反馈 → AI 分析差评 → AI 建议迭代方向
+     ↓           ↓              ↓
+(收集评价)   (分类+客服回复)  (产品改进清单)
+     ↓
+V2 立项 ← 回到第一步</code></pre>
+
+<div class="co g"><strong>核心思想：</strong>AI 不是替代你，是替代"本应存在的另外 5 个人"——PCB 审核工程师、测试工程师、市场分析师、文案策划、客服。你一个人的团队可以在 AI 辅助下跑出 5 个人的产出。</div>
+</table>
 
 <hr class="sep">
 
@@ -647,7 +936,7 @@ AI 写文案 → 上架 → AI 分析销售数据
 下一代产品</code></pre>
 
 <footer class="foot">
-  <p><strong>Project SmartCap</strong> · Version 0.3 · AI-Assisted Product Engineering · 2026-07-16</p>
+  <p><strong>Project SmartCap</strong> · Version 0.4 · AI-Assisted Product Engineering · 2026-07-16 · 全量文档</p>
   <p>GitHub: <a href="https://github.com/Frankhe303/smartcap" style="color:var(--cy)">github.com/Frankhe303/smartcap</a></p>
   <p>本文档从想法到完整产出耗时约 2 小时，全程 AI 辅助。这就是 AI Product Engineering。</p>
 </footer>
